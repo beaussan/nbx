@@ -1,8 +1,8 @@
 {
-  "name": "nbx",
+  "name": "@beaussan/nbx",
   "version": "0.0.1",
   "description": "nbx CLI",
-  "private": true,
+  "private": false,
   "bin": {
     "nbx": "bin/nbx"
   },
