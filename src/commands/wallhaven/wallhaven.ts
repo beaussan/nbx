@@ -15,7 +15,7 @@ module.exports = {
 
 
     const showHelp = () => {
-      info('UsageUsage: nbx wallhaven <terms ...>')
+      info('Usage: nbx wallhaven <terms ...>')
       info('')
       info('Options')
       info('   -r, --random        Pick one randomly')
