@@ -15,7 +15,7 @@ module.exports = {
 
 
     const showHelp = () => {
-      info('Usage: wallhaven-cli <terms ...>')
+      info('UsageUsage: nbx wallhaven <terms ...>')
       info('')
       info('Options')
       info('   -r, --random        Pick one randomly')
