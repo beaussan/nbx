@@ -1,3 +1,8 @@
+# [v1.1.0](https://github.com/beaussart/nbx/compare/v1.0.0...v1.1.0) (2019-11-20)
+
+## ✨ New Features
+- [`1ce78fb`](https://github.com/beaussart/nbx/commit/1ce78fb)  added util extention
+
 # v1.0.0 (2019-11-20)
 
 ## ✨ New Features
