@@ -30,9 +30,30 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`nbx add:prettier`](#nbx-addprettier)
 * [`nbx hello [FILE]`](#nbx-hello-file)
 * [`nbx help [COMMAND]`](#nbx-help-command)
 * [`nbx wall TERMS`](#nbx-wall-terms)
+
+## `nbx add:prettier`
+
+describe the command here
+
+```
+USAGE
+  $ nbx add:prettier
+
+OPTIONS
+  -h, --help     show CLI help
+  -r, --random   Pick one randomly
+  -v, --verbose  Verbose output
+
+EXAMPLE
+  $ nbx wall
+  hello world from ./src/hello.ts!
+```
+
+_See code: [src/commands/add/prettier.ts](https://github.com/beaussart/nbx/blob/v0.0.0/src/commands/add/prettier.ts)_
 
 ## `nbx hello [FILE]`
 

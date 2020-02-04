@@ -1,7 +1,7 @@
 import {flags} from '@oclif/command'
 import {BaseCommand} from '../../utls/base-command'
 import axios from 'axios'
-import * as jetpack from 'fs-jetpack'
+import {filesystem} from 'gluegun'
 
 function booleanToNumber(value: boolean): string {
   return value ? '1' : '0'
@@ -76,7 +76,7 @@ hello world from ./src/hello.ts!
     const filename = output ? output : `wallhaven-${firstImage.id}.jpg`
 
     const spinner = spin('Downloading wallpaper')
-    if (jetpack.exists(filename)) {
+    if (filesystem.exists(filename)) {
       if (force) {
         spinner.warn('Overrinding ' + filename)
       } else {
@@ -85,7 +85,7 @@ hello world from ./src/hello.ts!
       }
     }
 
-    const writer = jetpack.createWriteStream(filename, {})
+    const writer = filesystem.createWriteStream(filename, {})
 
     const response = await axios.get(firstImage.path, {
       method: 'GET',
