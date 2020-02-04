@@ -49,45 +49,12 @@ hello world from ./src/hello.ts!
     ], {onCancel: () => this.error('User canceled prompt.')})
 
     if (shouldCommit) {
-      const {config} = await this.getConfig()
-      if (!config?.git?.user) {
-        this.error('Missing config key git.user for git commits')
-      }
-      if (!config?.git?.email) {
-        this.error('Missing config key git.email for git commits')
-      }
-      await gitConfig({
-        dir: '.',
-        path: 'user.name',
-        value: config?.git?.user,
-      })
-      await gitConfig({
-        dir: '.',
-        path: 'user.email',
-        value: config?.git?.email,
-      })
-      const changes = (await statusMatrix({dir: '.', pattern: '**'}))
-      .filter(([_, head, workdir, stage]) => !(head === 1 && workdir === 1 && stage === 1))
-      if (changes.length > 0) {
-        this.error('There is unsaved changed in the git repository, aborting')
-      }
+      this.initGit()
     }
 
-    const addDevDependency = async (name: string): Promise<void> => {
-      await this.runWithSpinner(`Adding ${name} dependency`, async () => {
-        const versionToInstall = await latestVersion(name)
-        await system.exec(`yarn add -D ${name}@${versionToInstall}`)
-        if (shouldCommit) {
-          await add({filepath: 'package.json', dir: '.'})
-          await add({filepath: 'yarn.lock', dir: '.'})
-          await commit({dir: '.', message: `:heavy_plus_sign: add ${name}@${versionToInstall}`})
-        }
-      })
-    }
-
-    await addDevDependency('prettier')
-    await addDevDependency('husky')
-    await addDevDependency('pretty-quick')
+    await this.addDevDependency('prettier', shouldCommit)
+    await this.addDevDependency('husky', shouldCommit)
+    await this.addDevDependency('pretty-quick', shouldCommit)
 
     await this.runWithSpinner('Adding package.json scripts', async () => {
       const packageJsonWithDeps = filesystem.read(packagePath, 'json')
@@ -144,6 +111,90 @@ hello world from ./src/hello.ts!
 
         await Promise.all(commitsPromice)
         await commit({dir: '.', message: ':art: apply prettier style to project'})
+      }
+    })
+
+    await this.handleMaybeEslint(shouldCommit)
+  }
+
+  async initGit(): Promise<void> {
+    const {config} = await this.getConfig()
+    if (!config?.git?.user) {
+      this.error('Missing config key git.user for git commits')
+    }
+    if (!config?.git?.email) {
+      this.error('Missing config key git.email for git commits')
+    }
+    await gitConfig({
+      dir: '.',
+      path: 'user.name',
+      value: config?.git?.user,
+    })
+    await gitConfig({
+      dir: '.',
+      path: 'user.email',
+      value: config?.git?.email,
+    })
+    const changes = (await statusMatrix({dir: '.', pattern: '**'}))
+    .filter(([_, head, workdir, stage]) => !(head === 1 && workdir === 1 && stage === 1))
+    if (changes.length > 0) {
+      this.error('There is unsaved changed in the git repository, aborting')
+    }
+  }
+
+  async addDevDependency(name: string, shouldCommit: boolean): Promise<void> {
+    await this.runWithSpinner(`Adding ${name} dependency`, async () => {
+      const versionToInstall = await latestVersion(name)
+      await system.exec(`yarn add -D ${name}@${versionToInstall}`)
+      if (shouldCommit) {
+        await add({filepath: 'package.json', dir: '.'})
+        await add({filepath: 'yarn.lock', dir: '.'})
+        await commit({dir: '.', message: `:heavy_plus_sign: add ${name}@${versionToInstall}`})
+      }
+    })
+  }
+
+  async handleMaybeEslint(shouldCommit: boolean) {
+    const eslintPath = filesystem.path('.', '.eslintrc')
+    const hasEslintFile = filesystem.isFile(eslintPath)
+
+    if (!hasEslintFile) {
+      return
+    }
+
+    const {shouldOverrideEslint} = await prompts(
+      [
+        {
+          type: 'confirm',
+          message: 'Eslint found in the project, do you want to add eslint prettier config ?',
+          name: 'shouldOverrideEslint',
+          initial: true,
+        },
+      ],
+      {onCancel: () => this.error('User canceled prompt.')},
+    )
+
+    if (!shouldOverrideEslint) {
+      return
+    }
+    await this.addDevDependency('eslint-config-prettier', shouldCommit)
+    await this.addDevDependency('eslint-plugin-prettier', shouldCommit)
+
+    await this.runWithSpinner('Updating .eslintrc', async () => {
+      const eslintConfig = filesystem.read(eslintPath, 'json')
+      const finalEslintConfig = {
+        ...eslintConfig,
+        extends: [
+          ...eslintConfig.extends,
+          'plugin:prettier/recommended',
+        ],
+      }
+
+      await filesystem.write(eslintPath, finalEslintConfig, {jsonIndent: 2})
+
+      if (shouldCommit) {
+        await add({filepath: '.eslintrc', dir: '.'})
+        await commit({dir: '.', message: ':wrench: update eslint to use prettier'})
       }
     })
   }
