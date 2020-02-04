@@ -32,6 +32,7 @@
     "eslint-config-oclif": "3.1.0",
     "eslint-config-oclif-typescript": "0.1.0",
     "globby": "10.0.2",
+    "husky": "4.2.1",
     "prettier": "1.19.1",
     "ts-node": "8.6.2",
     "typescript": "3.7.5"
