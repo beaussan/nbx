@@ -1,7 +1,7 @@
 {
-  "name": "nbx",
+  "name": "@beaussan/nbx",
   "description": "My own personal cli",
-  "version": "2.0.0",
+  "version": "1.1.0",
   "author": "Nicolas Beaussart @beaussan",
   "bin": {
     "nbx": "./bin/run"
@@ -25,6 +25,9 @@
   },
   "devDependencies": {
     "@oclif/dev-cli": "1.22.2",
+    "@semantic-release/changelog": "5.0.0",
+    "@semantic-release/exec": "5.0.0",
+    "@semantic-release/git": "9.0.0",
     "@types/node": "10.17.14",
     "@types/nodegit": "0.26.1",
     "@types/prompts": "2.0.3",
@@ -37,6 +40,8 @@
     "husky": "4.2.1",
     "prettier": "1.19.1",
     "pretty-quick": "2.0.1",
+    "semantic-release": "17.0.2",
+    "semantic-release-gitmoji": "1.3.2",
     "ts-node": "8.6.2",
     "typescript": "3.7.5"
   },
@@ -76,9 +81,10 @@
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
-    "version": "oclif-dev readme && git add README.md",
+    "update-readme": "oclif-dev readme",
     "format:write": "prettier --write \"**/*.{js,vue,json,ts,tsx,md,yml,html}\"",
-    "format:check": "prettier --list-different \"**/*.{js,vue,json,ts,tsx,md,yml,html}\""
+    "format:check": "prettier --list-different \"**/*.{js,vue,json,ts,tsx,md,yml,html}\"",
+    "release": "semantic-release"
   },
   "types": "lib/index.d.ts",
   "husky": {

@@ -1,4 +1,3 @@
----
 version: 2
 jobs:
   node-latest: &test
@@ -11,7 +10,7 @@ jobs:
           keys:
             - v1-npm-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
             - v1-npm-{{checksum ".circleci/config.yml"}}
-      - run:
+      - run: &yarn_install
           name: Install dependencies
           command: yarn
       - run: ./bin/run --version
@@ -31,19 +30,26 @@ jobs:
     <<: *test
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: yarn
+      - *yarn_install
       - save_cache:
           key: v1-npm-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
           paths:
             - ~/cli/node_modules
             - /usr/local/share/.cache/yarn
             - /usr/local/share/.config/yarn
+  release:
+    <<: *test
+    steps:
+      - checkout
+      - *restore_cache
+      - *yarn_install
+      - run:
+          name: release
+          command: yarn release || true
 
 workflows:
   version: 2
-  'nbx':
+  nbx:
     jobs:
       - node-latest
       - node-12
@@ -53,4 +59,12 @@ workflows:
             tags:
               only: /^v.*/
             branches:
-              ignore: /.*/
+              only: master
+      - release:
+          requires:
+            - node-latest
+            - node-12
+            - node-10
+          filter:
+            branches:
+              only: master
