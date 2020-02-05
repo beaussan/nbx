@@ -1,18 +1,23 @@
-version: 2
+version: 2.1
+commands:
+  setup_deps:
+    description: 'Setup cache and do a yarn install'
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
+            - v1-npm-{{checksum ".circleci/config.yml"}}
+      - run:
+          name: Install dependencies
+          command: yarn
 jobs:
   node-latest: &test
     docker:
       - image: node:latest
     working_directory: ~/cli
     steps:
-      - checkout
-      - restore_cache: &restore_cache
-          keys:
-            - v1-npm-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
-            - v1-npm-{{checksum ".circleci/config.yml"}}
-      - run: &yarn_install
-          name: Install dependencies
-          command: yarn
+      - setup_deps
       - run: ./bin/run --version
       - run: ./bin/run --help
       - run:
@@ -29,8 +34,7 @@ jobs:
   prettier:
     <<: *test
     steps:
-      - checkout
-      - *yarn_install
+      - setup_deps
       - run:
           name: Check prettier
           command: yarn format:check
@@ -38,7 +42,9 @@ jobs:
     <<: *test
     steps:
       - checkout
-      - *yarn_install
+      - run:
+          name: Install dependencies
+          command: yarn
       - save_cache:
           key: v1-npm-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
           paths:
@@ -48,9 +54,7 @@ jobs:
   release:
     <<: *test
     steps:
-      - checkout
-      - *restore_cache
-      - *yarn_install
+      - setup_deps
       - run:
           name: release
           command: yarn release || true
