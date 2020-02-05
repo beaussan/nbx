@@ -1,14 +1,14 @@
 // import {flags} from '@oclif/command'
 import { BaseCommand } from '../../utls/base-command';
-import * as latestVersion from 'latest-version';
 import { system, filesystem } from 'gluegun';
 import * as prompts from 'prompts';
 import * as fs from 'fs';
-import { plugins, statusMatrix, add, commit, config as gitConfig } from 'isomorphic-git';
+import { plugins, statusMatrix, add, commit } from 'isomorphic-git';
+import { BaseAddCommand } from '../../utls/base-add-command';
 
 plugins.set('fs', fs);
 
-export default class Prettier extends BaseCommand {
+export default class Prettier extends BaseAddCommand {
   static description = 'describe the command here';
 
   static examples = [
@@ -107,64 +107,30 @@ hello world from ./src/hello.ts!
       await system.exec('yarn format:write');
 
       if (shouldCommit) {
-        const commitsPromice = (await statusMatrix({ dir: '.', pattern: '**' }))
-          .filter(([_, head, workdir, stage]) => !(head === 1 && workdir === 1 && stage === 1))
-          .map(arr => arr[0])
-          .map(filepath => add({ filepath, dir: '.' }));
-
-        await Promise.all(commitsPromice);
+        await this.gitAddUnstaged();
         await commit({ dir: '.', message: ':art: apply prettier style to project' });
       }
     });
 
     await this.handleMaybeEslint(shouldCommit);
+    await this.handleMaybeTslint(shouldCommit);
   }
 
-  async initGit(): Promise<void> {
-    const { config } = await this.getConfig();
-    if (!config?.git?.user) {
-      this.error('Missing config key git.user for git commits');
-    }
-    if (!config?.git?.email) {
-      this.error('Missing config key git.email for git commits');
-    }
-    await gitConfig({
-      dir: '.',
-      path: 'user.name',
-      value: config?.git?.user,
-    });
-    await gitConfig({
-      dir: '.',
-      path: 'user.email',
-      value: config?.git?.email,
-    });
-    const changes = (await statusMatrix({ dir: '.', pattern: '**' })).filter(
-      ([_, head, workdir, stage]) => !(head === 1 && workdir === 1 && stage === 1),
-    );
-    if (changes.length > 0) {
-      this.error('There is unsaved changed in the git repository, aborting');
-    }
-  }
-
-  async addDevDependency(name: string, shouldCommit: boolean): Promise<void> {
-    await this.runWithSpinner(`Adding ${name} dependency`, async () => {
-      const versionToInstall = await latestVersion(name);
-      await system.exec(`yarn add -D ${name}@${versionToInstall}`);
-      if (shouldCommit) {
-        await add({ filepath: 'package.json', dir: '.' });
-        await add({ filepath: 'yarn.lock', dir: '.' });
-        await commit({ dir: '.', message: `:heavy_plus_sign: add ${name}@${versionToInstall}` });
+  async findEslint(): Promise<string | null> {
+    for (const filename of ['.eslintrc', '.eslintrc.json']) {
+      if (filesystem.isFile(filename)) {
+        return filename;
       }
-    });
+    }
+    return null;
   }
 
   async handleMaybeEslint(shouldCommit: boolean) {
-    const eslintPath = filesystem.path('.', '.eslintrc');
-    const hasEslintFile = filesystem.isFile(eslintPath);
-
-    if (!hasEslintFile) {
+    const eslintFileName = await this.findEslint();
+    if (eslintFileName === null) {
       return;
     }
+    const eslintPath = filesystem.path('.', eslintFileName);
 
     const { shouldOverrideEslint } = await prompts(
       [
@@ -184,7 +150,7 @@ hello world from ./src/hello.ts!
     await this.addDevDependency('eslint-config-prettier', shouldCommit);
     await this.addDevDependency('eslint-plugin-prettier', shouldCommit);
 
-    await this.runWithSpinner('Updating .eslintrc', async () => {
+    await this.runWithSpinner(`Updating ${eslintFileName}`, async () => {
       const eslintConfig = filesystem.read(eslintPath, 'json');
       const finalEslintConfig = {
         ...eslintConfig,
@@ -194,8 +160,52 @@ hello world from ./src/hello.ts!
       await filesystem.write(eslintPath, finalEslintConfig, { jsonIndent: 2 });
 
       if (shouldCommit) {
-        await add({ filepath: '.eslintrc', dir: '.' });
+        await add({ filepath: eslintFileName, dir: '.' });
         await commit({ dir: '.', message: ':wrench: update eslint to use prettier' });
+      }
+    });
+  }
+
+  async handleMaybeTslint(shouldCommit: boolean) {
+    const tslintPath = filesystem.path('.', 'tslint.json');
+    if (!filesystem.isFile(tslintPath)) {
+      return;
+    }
+
+    const { shouldOverrideTslint } = await prompts(
+      [
+        {
+          type: 'confirm',
+          message: 'Tslint found in the project, do you want to add tslint prettier config ?',
+          name: 'shouldOverrideTslint',
+          initial: true,
+        },
+      ],
+      { onCancel: () => this.error('User canceled prompt.') },
+    );
+
+    if (!shouldOverrideTslint) {
+      return;
+    }
+    await this.addDevDependency('tslint-config-prettier', shouldCommit);
+    await this.addDevDependency('tslint-plugin-prettier', shouldCommit);
+
+    await this.runWithSpinner(`Updating tslint.json`, async () => {
+      const tslintConfig = filesystem.read(tslintPath, 'json');
+      const finalEslintConfig = {
+        ...tslintConfig,
+        extends: [...tslintConfig.extends, 'tslint-plugin-prettier', 'tslint-config-prettier'],
+        rules: {
+          ...tslintConfig.rules,
+          prettier: true,
+        },
+      };
+
+      await filesystem.write(tslintPath, finalEslintConfig, { jsonIndent: 2 });
+
+      if (shouldCommit) {
+        await add({ filepath: 'tslint.json', dir: '.' });
+        await commit({ dir: '.', message: ':wrench: update tslint to use prettier' });
       }
     });
   }
