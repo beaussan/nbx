@@ -14,7 +14,7 @@ commands:
 jobs:
   node-latest: &test
     docker:
-      - image: node:latest
+      - image: circleci/node:latest
     working_directory: ~/cli
     steps:
       - setup_deps
@@ -26,11 +26,11 @@ jobs:
   node-12:
     <<: *test
     docker:
-      - image: node:12
+      - image: circleci/node:12
   node-10:
     <<: *test
     docker:
-      - image: node:10
+      - image: circleci/node:10
   prettier:
     <<: *test
     steps:
