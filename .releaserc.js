@@ -1,7 +1,7 @@
 const { readFileSync } = require('fs');
 const path = require('path');
 
-const releaseTemplate = readFileSync(path.join('.github', 'release-template.hbs'));
+const releaseTemplate = readFileSync(path.join('.', '.github', 'release-template.hbs'));
 
 module.exports = {
   plugins: [
