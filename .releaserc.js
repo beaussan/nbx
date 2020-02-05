@@ -37,7 +37,7 @@ module.exports = {
           ],
         },
         releaseNotes: {
-          template: releaseTemplate,
+          // template: releaseTemplate,
         },
       },
     ],
@@ -59,7 +59,7 @@ module.exports = {
       '@semantic-release/git',
       {
         assets: ['CHANGELOG.md', 'package.json', 'README.md'],
-        message: ':bookmark: ${nextRelease.version}\n\n${nextRelease.notes}',
+        message: ':bookmark: ${nextRelease.version}\n\n${nextRelease.notes}\n\n[skip ci]',
       },
     ],
   ],
