@@ -10,14 +10,16 @@ My own personal cli
 [![License](https://img.shields.io/npm/l/nbx.svg)](https://github.com/beaussan/nbx/blob/master/package.json)
 
 <!-- toc -->
-* [nbx](#nbx)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+
+- [nbx](#nbx)
+- [Usage](#usage)
+- [Commands](#commands)
+  <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @beaussan/nbx
 $ nbx COMMAND
@@ -29,14 +31,16 @@ USAGE
   $ nbx COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`nbx add:prettier`](#nbx-addprettier)
-* [`nbx help [COMMAND]`](#nbx-help-command)
-* [`nbx wall TERMS`](#nbx-wall-terms)
+
+- [`nbx add:prettier`](#nbx-addprettier)
+- [`nbx help [COMMAND]`](#nbx-help-command)
+- [`nbx wall TERMS`](#nbx-wall-terms)
 
 ## `nbx add:prettier`
 
@@ -102,4 +106,5 @@ EXAMPLE
 ```
 
 _See code: [src/commands/wall/index.ts](https://github.com/beaussan/nbx/blob/v1.2.0/src/commands/wall/index.ts)_
+
 <!-- commandsstop -->
