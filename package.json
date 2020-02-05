@@ -1,12 +1,12 @@
 {
   "name": "nbx",
   "description": "My own personal cli",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Nicolas Beaussart @beaussan",
   "bin": {
     "nbx": "./bin/run"
   },
-  "bugs": "https://github.com/beaussart/nbx/issues",
+  "bugs": "https://github.com/beaussan/nbx/issues",
   "dependencies": {
     "@oclif/command": "1.5.19",
     "@oclif/config": "1.13.3",
@@ -49,7 +49,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/beaussart/nbx",
+  "homepage": "https://github.com/beaussan/nbx",
   "keywords": [
     "oclif"
   ],
@@ -70,7 +70,7 @@
       }
     }
   },
-  "repository": "beaussart/nbx",
+  "repository": "https://github.com/beaussan/nbx",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
