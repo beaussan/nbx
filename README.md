@@ -10,37 +10,33 @@ My own personal cli
 [![License](https://img.shields.io/npm/l/nbx.svg)](https://github.com/beaussan/nbx/blob/master/package.json)
 
 <!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
-  <!-- tocstop -->
+* [nbx](#nbx)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
-$ npm install -g nbx
+$ npm install -g @beaussan/nbx
 $ nbx COMMAND
 running command...
 $ nbx (-v|--version|version)
-nbx/0.0.0 linux-x64 node-v10.16.0
+@beaussan/nbx/1.2.0 linux-x64 node-v13.7.0
 $ nbx --help [COMMAND]
 USAGE
   $ nbx COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`nbx add:prettier`](#nbx-addprettier)
-- [`nbx hello [FILE]`](#nbx-hello-file)
-- [`nbx help [COMMAND]`](#nbx-help-command)
-- [`nbx wall TERMS`](#nbx-wall-terms)
+* [`nbx add:prettier`](#nbx-addprettier)
+* [`nbx help [COMMAND]`](#nbx-help-command)
+* [`nbx wall TERMS`](#nbx-wall-terms)
 
 ## `nbx add:prettier`
 
@@ -52,7 +48,6 @@ USAGE
 
 OPTIONS
   -h, --help     show CLI help
-  -r, --random   Pick one randomly
   -v, --verbose  Verbose output
 
 EXAMPLE
@@ -60,27 +55,7 @@ EXAMPLE
   hello world from ./src/hello.ts!
 ```
 
-_See code: [src/commands/add/prettier.ts](https://github.com/beaussart/nbx/blob/v0.0.0/src/commands/add/prettier.ts)_
-
-## `nbx hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ nbx hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ nbx hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello/index.ts](https://github.com/beaussart/nbx/blob/v0.0.0/src/commands/hello/index.ts)_
+_See code: [src/commands/add/prettier.ts](https://github.com/beaussan/nbx/blob/v1.2.0/src/commands/add/prettier.ts)_
 
 ## `nbx help [COMMAND]`
 
@@ -126,6 +101,5 @@ EXAMPLE
   hello world from ./src/hello.ts!
 ```
 
-_See code: [src/commands/wall/index.ts](https://github.com/beaussart/nbx/blob/v0.0.0/src/commands/wall/index.ts)_
-
+_See code: [src/commands/wall/index.ts](https://github.com/beaussan/nbx/blob/v1.2.0/src/commands/wall/index.ts)_
 <!-- commandsstop -->
