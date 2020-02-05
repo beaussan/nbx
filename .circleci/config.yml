@@ -26,6 +26,14 @@ jobs:
     <<: *test
     docker:
       - image: node:10
+  prettier:
+    <<: *test
+    steps:
+      - checkout
+      - *yarn_install
+      - run:
+          name: Check prettier
+          command: yarn format:check
   cache:
     <<: *test
     steps:
@@ -54,6 +62,7 @@ workflows:
       - node-latest
       - node-12
       - node-10
+      - prettier
       - cache:
           filters:
             tags:
@@ -65,6 +74,7 @@ workflows:
             - node-latest
             - node-12
             - node-10
+            - prettier
           filter:
             branches:
               only: master
