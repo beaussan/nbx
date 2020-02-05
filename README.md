@@ -25,7 +25,7 @@ $ npm install -g @beaussan/nbx
 $ nbx COMMAND
 running command...
 $ nbx (-v|--version|version)
-@beaussan/nbx/2.0.0 linux-x64 node-v13.7.0
+@beaussan/nbx/2.0.1 linux-x64 node-v13.7.0
 $ nbx --help [COMMAND]
 USAGE
   $ nbx COMMAND
@@ -59,7 +59,7 @@ EXAMPLE
   hello world from ./src/hello.ts!
 ```
 
-_See code: [src/commands/add/prettier.ts](https://github.com/beaussan/nbx/blob/v2.0.0/src/commands/add/prettier.ts)_
+_See code: [src/commands/add/prettier.ts](https://github.com/beaussan/nbx/blob/v2.0.1/src/commands/add/prettier.ts)_
 
 ## `nbx help [COMMAND]`
 
@@ -105,6 +105,6 @@ EXAMPLE
   hello world from ./src/hello.ts!
 ```
 
-_See code: [src/commands/wall/index.ts](https://github.com/beaussan/nbx/blob/v2.0.0/src/commands/wall/index.ts)_
+_See code: [src/commands/wall/index.ts](https://github.com/beaussan/nbx/blob/v2.0.1/src/commands/wall/index.ts)_
 
 <!-- commandsstop -->
