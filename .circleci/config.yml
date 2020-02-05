@@ -75,6 +75,6 @@ workflows:
             - node-12
             - node-10
             - prettier
-          filter:
+          filters:
             branches:
               only: master
