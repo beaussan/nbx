@@ -27,7 +27,7 @@ export abstract class BaseCommand extends Command {
 
   async init() {
     // do some initialization
-    const { flags, args, argv } = this.parse(<Input<any>>this.constructor);
+    const { flags, args, argv } = this.parse(this.constructor as Input<any>);
     this.flags = flags;
 
     if (flags.verbose) {

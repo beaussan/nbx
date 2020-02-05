@@ -3,7 +3,7 @@ import { BaseCommand } from '../../utls/base-command';
 import { system, filesystem } from 'gluegun';
 import * as prompts from 'prompts';
 import * as fs from 'fs';
-import { plugins, statusMatrix, add, commit } from 'isomorphic-git';
+import { plugins, add, commit } from 'isomorphic-git';
 import { BaseAddCommand } from '../../utls/base-add-command';
 
 plugins.set('fs', fs);
