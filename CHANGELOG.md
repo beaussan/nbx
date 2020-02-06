@@ -1,3 +1,9 @@
+# [v2.1.1](https://github.com/beaussan/nbx/compare/v2.1.0...v2.1.1) (2020-02-06)
+
+## 🚑 Critical Hotfixes
+
+- [`bd244b0`](https://github.com/beaussan/nbx/commit/bd244b0)  fix base add command
+
 # [v2.1.0](https://github.com/beaussan/nbx/compare/v2.0.7...v2.1.0) (2020-02-06)
 
 ## ✨ New Features
