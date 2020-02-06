@@ -43,6 +43,11 @@ export abstract class BaseAddCommand extends BaseCommand {
     return Boolean(packageJson.devDependencies[name]);
   }
 
+  hasDependencyInPackageJson(name: string): boolean {
+    const packageJson = filesystem.read('package.sjon', 'json');
+    return Boolean(packageJson.dependencies[name]);
+  }
+
   async gitAddUnstaged() {
     const commitsPromice = (await statusMatrix({ dir: '.', pattern: '**' }))
       .filter(([_, head, workdir, stage]) => !(head === 1 && workdir === 1 && stage === 1))
