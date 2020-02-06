@@ -1,3 +1,8 @@
+# [v2.0.6](https://github.com/beaussan/nbx/compare/v2.0.5...v2.0.6) (2020-02-06)
+
+## 🚑 Critical Hotfixes
+- [`c1c77cc`](https://github.com/beaussan/nbx/commit/c1c77cc)  fix prettier and changelog prettier
+
 # [v2.0.5](https://github.com/beaussan/nbx/compare/v2.0.4...v2.0.5) (2020-02-06)
 
 ## 🚑 Critical Hotfixes
