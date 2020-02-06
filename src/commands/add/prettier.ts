@@ -16,14 +16,11 @@ export default class Prettier extends BaseAddCommand {
   };
 
   async run() {
-    const packagePath = filesystem.path('.', 'package.json');
-
-    if (filesystem.exists(packagePath) !== 'file') {
+    if (!this.hasDirPackageJson()) {
       this.error('There is no package.json not found in the current folder');
     }
 
-    const packageJson = filesystem.read(packagePath, 'json');
-    if (packageJson.devDependencies.prettier) {
+    if (this.hasDevDependencyInPackageJson('prettier')) {
       this.error('Prettier is already installed in this project.');
     }
 
@@ -54,6 +51,7 @@ export default class Prettier extends BaseAddCommand {
     await this.addDevDependency('pretty-quick', shouldCommit);
 
     await this.runWithSpinner('Adding package.json scripts', async () => {
+      const packagePath = filesystem.path('.', 'package.json');
       const packageJsonWithDeps = filesystem.read(packagePath, 'json');
       const finalPackageJson = {
         ...packageJsonWithDeps,
@@ -65,7 +63,9 @@ export default class Prettier extends BaseAddCommand {
           'format:check': `prettier --list-different "${mask}"`,
         },
         husky: {
+          ...packageJsonWithDeps.husky,
           hooks: {
+            ...packageJsonWithDeps?.husky?.hooks,
             'pre-commit': 'pretty-quick --staged',
           },
         },

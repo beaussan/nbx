@@ -1,7 +1,7 @@
 import { BaseCommand } from './base-command';
 import { add, commit, config as gitConfig, statusMatrix } from 'isomorphic-git';
 import * as latestVersion from 'latest-version';
-import { system } from 'gluegun';
+import { filesystem, system } from 'gluegun';
 
 export abstract class BaseAddCommand extends BaseCommand {
   static flags = {
@@ -32,6 +32,15 @@ export abstract class BaseAddCommand extends BaseCommand {
     if (changes.length > 0) {
       this.error('There is unsaved changed in the git repository, aborting');
     }
+  }
+
+  hasDirPackageJson() {
+    return filesystem.isFile(filesystem.path('.', 'package.json'));
+  }
+
+  hasDevDependencyInPackageJson(name: string): boolean {
+    const packageJson = filesystem.read('package.sjon', 'json');
+    return Boolean(packageJson.devDependencies[name]);
   }
 
   async gitAddUnstaged() {
