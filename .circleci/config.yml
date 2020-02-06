@@ -38,6 +38,13 @@ jobs:
       - run:
           name: Check prettier
           command: yarn format:check
+  commit-lint:
+    <<: *test
+    steps:
+      - setup_deps
+      - run:
+          name: Commit lint
+          command: ./node_modules/.bin/commitlint --from origin/master --to ${CIRCLE_SHA1}
   cache:
     <<: *test
     steps:
@@ -51,6 +58,7 @@ jobs:
             - ~/cli/node_modules
             - /usr/local/share/.cache/yarn
             - /usr/local/share/.config/yarn
+
   release:
     <<: *test
     steps:
@@ -67,6 +75,7 @@ workflows:
       - node-12
       - node-10
       - prettier
+      - commit-lint
       - cache:
           filters:
             tags:
@@ -79,6 +88,7 @@ workflows:
             - node-12
             - node-10
             - prettier
+            - commit-lint
           filters:
             branches:
               only: master
