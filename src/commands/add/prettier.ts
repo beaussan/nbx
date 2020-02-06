@@ -57,9 +57,7 @@ export default class Prettier extends BaseAddCommand {
         ...packageJsonWithDeps,
         scripts: {
           ...packageJsonWithDeps.scripts,
-          // eslint-disable-next-line no-useless-escape
           'format:write': `prettier --write "${mask}"`,
-          // eslint-disable-next-line no-useless-escape
           'format:check': `prettier --list-different "${mask}"`,
         },
         husky: {
