@@ -7,7 +7,7 @@ import { BaseAddCommand } from '../../utls/base-add-command';
 
 plugins.set('fs', fs);
 
-export default class Prettier extends BaseAddCommand {
+export default class Tailwind extends BaseAddCommand {
   static description = 'add tailwindcss to a project';
 
   static flags = {

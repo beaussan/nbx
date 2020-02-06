@@ -39,12 +39,12 @@ export abstract class BaseAddCommand extends BaseCommand {
   }
 
   hasDevDependencyInPackageJson(name: string): boolean {
-    const packageJson = filesystem.read('package.sjon', 'json');
+    const packageJson = filesystem.read('package.json', 'json');
     return Boolean(packageJson.devDependencies[name]);
   }
 
   hasDependencyInPackageJson(name: string): boolean {
-    const packageJson = filesystem.read('package.sjon', 'json');
+    const packageJson = filesystem.read('package.json', 'json');
     return Boolean(packageJson.dependencies[name]);
   }
 
