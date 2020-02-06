@@ -1,8 +1,9 @@
 # [v2.0.5](https://github.com/beaussan/nbx/compare/v2.0.4...v2.0.5) (2020-02-06)
 
 ## 🚑 Critical Hotfixes
-- [`5303541`](https://github.com/beaussan/nbx/commit/5303541)  try to correctly deploy 
-- [`c71645f`](https://github.com/beaussan/nbx/commit/c71645f)  fix handlebar to unsecure version for release
+
+- [`5303541`](https://github.com/beaussan/nbx/commit/5303541) try to correctly deploy
+- [`c71645f`](https://github.com/beaussan/nbx/commit/c71645f) fix handlebar to unsecure version for release
 
 # [v2.0.4](https://github.com/beaussan/nbx/compare/v2.0.3...v2.0.4) (2020-02-06)
 

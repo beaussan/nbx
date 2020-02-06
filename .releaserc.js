@@ -44,7 +44,7 @@ module.exports = {
     [
       '@semantic-release/exec',
       {
-        prepareCmd: 'yarn update-readme && yarn prettier --write README.md',
+        prepareCmd: 'yarn prettier --write README.md && yarn prettier --write CHANGELOG.md',
       },
     ],
     '@semantic-release/github',
@@ -59,7 +59,7 @@ module.exports = {
       '@semantic-release/git',
       {
         assets: ['CHANGELOG.md', 'package.json', 'README.md'],
-        message: ':bookmark: ${nextRelease.version}\n\n${nextRelease.notes}\n\n[skip ci]',
+        message: ':bookmark: ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
     ],
   ],
