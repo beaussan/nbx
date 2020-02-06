@@ -3,10 +3,10 @@
 My own personal cli
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/nbx.svg)](https://npmjs.org/package/nbx)
-[![CircleCI](https://circleci.com/gh/beaussart/nbx/tree/master.svg?style=shield)](https://circleci.com/gh/beaussan/nbx/tree/master)
+[![Version](https://img.shields.io/npm/v/nbx.svg)](https://npmjs.org/package/@beaussan/nbx)
+[![CircleCI](https://circleci.com/gh/beaussan/nbx/tree/master.svg?style=shield)](https://circleci.com/gh/beaussan/nbx/tree/master)
 [![Codecov](https://codecov.io/gh/beaussan/nbx/branch/master/graph/badge.svg)](https://codecov.io/gh/beaussan/nbx)
-[![Downloads/week](https://img.shields.io/npm/dw/nbx.svg)](https://npmjs.org/package/nbx)
+[![Downloads/week](https://img.shields.io/npm/dw/nbx.svg)](https://npmjs.org/package/@beaussan/nbx)
 [![License](https://img.shields.io/npm/l/nbx.svg)](https://github.com/beaussan/nbx/blob/master/package.json)
 
 <!-- toc -->
