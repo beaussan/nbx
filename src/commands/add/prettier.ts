@@ -9,27 +9,18 @@ import { BaseAddCommand } from '../../utls/base-add-command';
 plugins.set('fs', fs);
 
 export default class Prettier extends BaseAddCommand {
-  static description = 'describe the command here';
-
-  static examples = [
-    `$ nbx wall
-hello world from ./src/hello.ts!
-`,
-  ];
+  static description = 'add prettier to project and format it';
 
   static flags = {
     ...BaseCommand.flags,
   };
 
   async run() {
-    const packagePath = filesystem.path('.', 'package.json');
-
-    if (filesystem.exists(packagePath) !== 'file') {
+    if (!this.hasDirPackageJson()) {
       this.error('There is no package.json not found in the current folder');
     }
 
-    const packageJson = filesystem.read(packagePath, 'json');
-    if (packageJson.devDependencies.prettier) {
+    if (this.hasDevDependencyInPackageJson('prettier')) {
       this.error('Prettier is already installed in this project.');
     }
 
@@ -60,18 +51,19 @@ hello world from ./src/hello.ts!
     await this.addDevDependency('pretty-quick', shouldCommit);
 
     await this.runWithSpinner('Adding package.json scripts', async () => {
+      const packagePath = filesystem.path('.', 'package.json');
       const packageJsonWithDeps = filesystem.read(packagePath, 'json');
       const finalPackageJson = {
         ...packageJsonWithDeps,
         scripts: {
           ...packageJsonWithDeps.scripts,
-          // eslint-disable-next-line no-useless-escape
           'format:write': `prettier --write "${mask}"`,
-          // eslint-disable-next-line no-useless-escape
           'format:check': `prettier --list-different "${mask}"`,
         },
         husky: {
+          ...packageJsonWithDeps.husky,
           hooks: {
+            ...packageJsonWithDeps?.husky?.hooks,
             'pre-commit': 'pretty-quick --staged',
           },
         },
