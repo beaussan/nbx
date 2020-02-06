@@ -14,11 +14,10 @@ interface WallhavenItem {
 }
 
 export default class Wall extends BaseCommand {
-  static description = 'describe the command here';
+  static description = 'download a wallpaper from wallhaven using search';
 
   static examples = [
-    `$ nbx wall
-hello world from ./src/hello.ts!
+    `$ nbx wall -r "cat" -o "wall.jpg" -fg
 `,
   ];
 

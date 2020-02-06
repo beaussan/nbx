@@ -9,13 +9,7 @@ import { BaseAddCommand } from '../../utls/base-add-command';
 plugins.set('fs', fs);
 
 export default class Prettier extends BaseAddCommand {
-  static description = 'describe the command here';
-
-  static examples = [
-    `$ nbx wall
-hello world from ./src/hello.ts!
-`,
-  ];
+  static description = 'add prettier to project and format it';
 
   static flags = {
     ...BaseCommand.flags,
