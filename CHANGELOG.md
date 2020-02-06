@@ -1,3 +1,9 @@
+# [v2.1.0](https://github.com/beaussan/nbx/compare/v2.0.7...v2.1.0) (2020-02-06)
+
+## ✨ New Features
+
+- [`49a8b74`](https://github.com/beaussan/nbx/commit/49a8b74)  add tailwind add command !
+
 # [v2.0.7](https://github.com/beaussan/nbx/compare/v2.0.6...v2.0.7) (2020-02-06)
 
 ## 🚑 Critical Hotfixes
