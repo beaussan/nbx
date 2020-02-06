@@ -37,7 +37,7 @@ module.exports = {
           ],
         },
         releaseNotes: {
-          // template: releaseTemplate,
+          template: releaseTemplate,
         },
       },
     ],
