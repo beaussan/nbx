@@ -24,6 +24,7 @@
     "tslib": "1.10.0"
   },
   "devDependencies": {
+    "@commitlint/core": "8.3.5",
     "@oclif/dev-cli": "1.22.2",
     "@semantic-release/changelog": "5.0.0",
     "@semantic-release/exec": "5.0.0",
@@ -31,6 +32,7 @@
     "@types/node": "10.17.14",
     "@types/nodegit": "0.26.1",
     "@types/prompts": "2.0.3",
+    "commitlint-config-gitmoji": "1.0.1",
     "eslint": "5.13.0",
     "eslint-config-oclif": "3.1.0",
     "eslint-config-oclif-typescript": "0.1.0",
@@ -89,7 +91,8 @@
   "types": "lib/index.d.ts",
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
 }
