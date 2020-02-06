@@ -1,3 +1,9 @@
+# [v2.0.7](https://github.com/beaussan/nbx/compare/v2.0.6...v2.0.7) (2020-02-06)
+
+## 🚑 Critical Hotfixes
+
+- [`319dd45`](https://github.com/beaussan/nbx/commit/319dd45)  fix changelog to match prettier style
+
 # [v2.0.6](https://github.com/beaussan/nbx/compare/v2.0.5...v2.0.6) (2020-02-06)
 
 ## 🚑 Critical Hotfixes

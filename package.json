@@ -1,7 +1,7 @@
 {
   "name": "@beaussan/nbx",
   "description": "My own personal cli",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "author": "Nicolas Beaussart @beaussan",
   "bin": {
     "nbx": "./bin/run"
