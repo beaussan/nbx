@@ -58,7 +58,7 @@ export abstract class BaseAddCommand extends BaseCommand {
   }
 
   async addDevDependency(name: string, shouldCommit: boolean): Promise<void> {
-    await this.runWithSpinner(`Adding ${name} dependency`, async () => {
+    await this.runWithSpinner(`Adding ${name} as a dev dependency`, async () => {
       const versionToInstall = await latestVersion(name);
       await system.exec(`yarn add -D ${name}@${versionToInstall}`);
       if (shouldCommit) {
@@ -70,7 +70,7 @@ export abstract class BaseAddCommand extends BaseCommand {
   }
 
   async addDependency(name: string, shouldCommit: boolean): Promise<void> {
-    await this.runWithSpinner(`Adding ${name} dependency`, async () => {
+    await this.runWithSpinner(`Adding ${name} as a dependency`, async () => {
       const versionToInstall = await latestVersion(name);
       await system.exec(`yarn add ${name}@${versionToInstall}`);
       if (shouldCommit) {
