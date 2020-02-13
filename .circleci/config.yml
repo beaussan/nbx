@@ -23,6 +23,9 @@ jobs:
       - run:
           name: Testing
           command: yarn test
+      - run:
+          name: Sending to codecov
+          command: yarn codecov
   node-12:
     <<: *test
     docker:

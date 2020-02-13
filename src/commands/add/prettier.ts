@@ -74,7 +74,10 @@ export default class Prettier extends BaseAddCommand {
 
       if (shouldCommit) {
         await add({ filepath: 'package.json', dir: '.' });
-        await commit({ dir: '.', message: ':wrench: add script and husky to package.json' });
+        await commit({
+          dir: '.',
+          message: ':wrench: add script and husky to package.json',
+        });
       }
     });
 
@@ -82,16 +85,21 @@ export default class Prettier extends BaseAddCommand {
       const prettierRcFile = {
         semi: true,
         singleQuote: true,
-        printWidth: 120,
+        printWidth: 80,
         quoteProps: 'consistent',
         trailingComma: 'all',
       };
 
-      await filesystem.write(filesystem.path('.', '.prettierrc'), prettierRcFile, { jsonIndent: 2 });
+      await filesystem.write(filesystem.path('.', '.prettierrc'), prettierRcFile, {
+        jsonIndent: 2,
+      });
 
       if (shouldCommit) {
         await add({ filepath: '.prettierrc', dir: '.' });
-        await commit({ dir: '.', message: ':wrench: add prettierrc config file' });
+        await commit({
+          dir: '.',
+          message: ':wrench: add prettierrc config file',
+        });
       }
     });
 
@@ -100,7 +108,10 @@ export default class Prettier extends BaseAddCommand {
 
       if (shouldCommit) {
         await this.gitAddUnstaged();
-        await commit({ dir: '.', message: ':art: apply prettier style to project' });
+        await commit({
+          dir: '.',
+          message: ':art: apply prettier style to project',
+        });
       }
     });
 
@@ -153,7 +164,10 @@ export default class Prettier extends BaseAddCommand {
 
       if (shouldCommit) {
         await add({ filepath: eslintFileName, dir: '.' });
-        await commit({ dir: '.', message: ':wrench: update eslint to use prettier' });
+        await commit({
+          dir: '.',
+          message: ':wrench: update eslint to use prettier',
+        });
       }
     });
   }
@@ -197,7 +211,10 @@ export default class Prettier extends BaseAddCommand {
 
       if (shouldCommit) {
         await add({ filepath: 'tslint.json', dir: '.' });
-        await commit({ dir: '.', message: ':wrench: update tslint to use prettier' });
+        await commit({
+          dir: '.',
+          message: ':wrench: update tslint to use prettier',
+        });
       }
     });
   }

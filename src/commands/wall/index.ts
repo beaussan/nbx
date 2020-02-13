@@ -21,7 +21,9 @@ export default class Wall extends BaseCommand {
 `,
   ];
 
-  static args = [{ name: 'terms', description: 'The search terms for the wallpaper', required: true }];
+  static args = [
+    { name: 'terms', description: 'The search terms for the wallpaper', required: true },
+  ];
 
   static flags = {
     ...BaseCommand.flags,
@@ -38,9 +40,6 @@ export default class Wall extends BaseCommand {
     const { args, argv, flags } = this.parse(Wall);
     const { general, anime, people, output, force, random, sketchy } = flags;
     const { terms } = args;
-    const {
-      print: { spin },
-    } = this.tools;
 
     this.vprint(args, 'args');
     this.vprint(argv, 'argv');
@@ -50,55 +49,59 @@ export default class Wall extends BaseCommand {
       this.error('You must use at least one category flag');
     }
 
-    const spinFetchList = spin('Searching wallpapers');
-
-    const categories = `${booleanToNumber(general)}${booleanToNumber(anime)}${booleanToNumber(people)}`;
-    const {
-      data: { data },
-    } = await axios.get<{ data: WallhavenItem[] }>('https://wallhaven.cc/api/v1/search', {
-      params: {
-        q: `${terms}`,
-        sorting: random ? 'random' : 'relevance',
-        categories,
-        purity: `1${booleanToNumber(sketchy)}0`,
-        atleast: '1920x1080',
-        ratios: '16x9',
-      },
+    const resultFromSearch = await this.runWithSpinner('Searching wallpapers', async () => {
+      const categories = `${booleanToNumber(general)}${booleanToNumber(anime)}${booleanToNumber(
+        people,
+      )}`;
+      const {
+        data: { data },
+      } = await axios.get<{ data: WallhavenItem[] }>('https://wallhaven.cc/api/v1/search', {
+        params: {
+          q: `${terms}`,
+          sorting: random ? 'random' : 'relevance',
+          categories,
+          purity: `1${booleanToNumber(sketchy)}0`,
+          atleast: '1920x1080',
+          ratios: '16x9',
+        },
+      });
+      return data;
     });
-    spinFetchList.succeed();
 
-    if (!data || data.length === 0) {
+    if (!resultFromSearch || resultFromSearch.length === 0) {
       this.error('No image found, try another search term');
     }
 
-    const firstImage = data[0];
+    const firstImage = resultFromSearch[0];
     this.vprint(firstImage, 'Image raw data');
 
     const filename = output ? output : `wallhaven-${firstImage.id}.jpg`;
 
-    const spinner = spin('Downloading wallpaper');
-    if (filesystem.exists(filename)) {
-      if (force) {
-        spinner.warn('Overrinding ' + filename);
-      } else {
-        spinner.fail('The file ' + filename + ' already exist');
-        this.error('The flag force was not set, aborting');
+    await this.runWithSpinner('Downloading wallpaper', async spinner => {
+      if (filesystem.exists(filename)) {
+        if (force) {
+          spinner.warn(`Overriding ${filename}`);
+        } else {
+          spinner.fail(`The file ${filename} already exist`);
+          this.error('The flag force was not set, aborting');
+        }
       }
-    }
 
-    const writer = filesystem.createWriteStream(filename, {});
+      const writer = filesystem.createWriteStream(filename, {});
 
-    const response = await axios.get(firstImage.path, {
-      method: 'GET',
-      responseType: 'stream',
+      const response = await axios.get(firstImage.path, {
+        method: 'GET',
+        responseType: 'stream',
+      });
+
+      response.data.pipe(writer);
+
+      await new Promise((resolve, reject) => {
+        writer.on('finish', resolve);
+        writer.on('error', reject);
+      });
+
+      spinner.succeed(`Successfully wrote ${filename}.`);
     });
-
-    response.data.pipe(writer);
-
-    await new Promise((resolve, reject) => {
-      writer.on('finish', resolve);
-      writer.on('error', reject);
-    });
-    spinner.succeed();
   }
 }

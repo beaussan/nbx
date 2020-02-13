@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`prettier should print help correctly 1`] = `
+Array [
+  "add prettier to project and format it
+",
+  "USAGE
+  $ nbx add:prettier
+
+OPTIONS
+  -h, --help      show CLI help
+  -v, --verbose   Verbose output
+  --[no-]spinner  Enable spinner in cli output, true by default",
+  "",
+]
+`;
+
+exports[`prettier should work with commits 1`] = `
+Array [
+  "Adding prettier as a dev dependency",
+  "The step was done without any error.",
+  "Adding husky as a dev dependency",
+  "The step was done without any error.",
+  "Adding pretty-quick as a dev dependency",
+  "The step was done without any error.",
+  "Adding package.json scripts",
+  "The step was done without any error.",
+  "Adding .prettierrc config file",
+  "The step was done without any error.",
+  "Updating code to match prettier style",
+  "The step was done without any error.",
+]
+`;
+
+exports[`prettier should work with commits 2`] = `
+"<html>
+  <body>
+    <a>testokiii</a>
+  </body>
+</html>
+"
+`;
+
+exports[`prettier should work without commits 1`] = `
+Array [
+  "Adding prettier as a dev dependency",
+  "The step was done without any error.",
+  "Adding husky as a dev dependency",
+  "The step was done without any error.",
+  "Adding pretty-quick as a dev dependency",
+  "The step was done without any error.",
+  "Adding package.json scripts",
+  "The step was done without any error.",
+  "Adding .prettierrc config file",
+  "The step was done without any error.",
+  "Updating code to match prettier style",
+  "The step was done without any error.",
+]
+`;
+
+exports[`prettier should work without commits 2`] = `
+"<html>
+  <body>
+    <a>testokiii</a>
+  </body>
+</html>
+"
+`;
