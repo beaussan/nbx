@@ -20,8 +20,10 @@ beforeEach(async () => {
   execPath = filesystem.path('/', 'tmp', tmpDirName);
   filesystem.dir(execPath);
   process.chdir(execPath);
-  await system.run('git config --global user.email "you@example.com"');
-  await system.run('git config --global user.name "Your Name"');
+  try {
+    await system.run('git config --global user.email "you@example.com"');
+    await system.run('git config --global user.name "Your Name"');
+  } catch {}
 });
 afterEach(() => {
   console.log = originalLog;
