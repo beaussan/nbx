@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseAddCommand InitGit() should error when git.mail is missing 1`] = `[Error: Missing config key git.email for git commits]`;
+
+exports[`BaseAddCommand InitGit() should error when git.user is missing 1`] = `[Error: Missing config key git.user for git commits]`;
+
+exports[`BaseAddCommand InitGit() should error when no config for git is found 1`] = `[Error: Config not found. Tried to look for a .nbxrc, .nbxrc.json, .nbxrc.yaml, .nbxrc.yml, .nbxrc.js]`;
+
+exports[`BaseAddCommand InitGit() should error when no git in repository 1`] = `[Error: Could not set git config. Maybe the command was not run in a git repository.]`;
+
+exports[`BaseAddCommand InitGit() should error when the config is not full 1`] = `[Error: Missing config key git.user for git commits]`;
+
+exports[`BaseAddCommand InitGit() should error when the git repository is not clean 1`] = `[Error: There is unsaved changed in the git repository, aborting]`;
+
+exports[`BaseAddCommand addDependency should add the dependancy with git 1`] = `
+Array [
+  "Adding chalk as a dependency",
+  "The step was done without any error.",
+]
+`;
+
+exports[`BaseAddCommand addDependency should add the dependancy without git 1`] = `
+Array [
+  "Adding chalk as a dependency",
+  "The step was done without any error.",
+]
+`;
+
+exports[`BaseAddCommand addDependency should add the dependancy without git 2`] = `
+" M package.json
+ M yarn.lock
+?? node_modules/
+"
+`;
+
+exports[`BaseAddCommand addDevDependency should add the dependancy with git 1`] = `
+Array [
+  "Adding chalk as a dev dependency",
+  "The step was done without any error.",
+]
+`;
+
+exports[`BaseAddCommand addDevDependency should add the dependancy without git 1`] = `
+Array [
+  "Adding chalk as a dev dependency",
+  "The step was done without any error.",
+]
+`;
+
+exports[`BaseAddCommand addDevDependency should add the dependancy without git 2`] = `
+" M package.json
+ M yarn.lock
+?? node_modules/
+"
+`;
+
+exports[`BaseAddCommand gitAddUnstaged should add uncommited changes 1`] = `
+"A  .nbxrc
+A  test.1.md
+A  test.2.md
+A  test.3.md
+"
+`;

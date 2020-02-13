@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tailwind should print help correctly 1`] = `
+Array [
+  "add tailwindcss to a project
+",
+  "USAGE
+  $ nbx add:tailwind
+
+OPTIONS
+  -h, --help      show CLI help
+  -v, --verbose   Verbose output
+  --[no-]spinner  Enable spinner in cli output, true by default",
+  "",
+]
+`;
+
+exports[`tailwind should work on a react application with commits 1`] = `
+"const purgecss = require('@fullhuman/postcss-purgecss')({
+  content: ['./src/**/*.jsx', './src/**/*.js', './src/index.js', './public/index.html'],
+  css: ['./src/tailwind.css'],
+  // Include any special characters you're using in this regular expression
+  defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
+});
+module.exports = {
+  plugins: [
+    require('tailwindcss')('./tailwind.config.js'),
+    require('autoprefixer'),
+    ...(process.env.NODE_ENV === 'production' ? [purgecss] : []),
+  ],
+};
+"
+`;
+
+exports[`tailwind should work on a react application without commits 1`] = `
+"const purgecss = require('@fullhuman/postcss-purgecss')({
+  content: ['./src/**/*.jsx', './src/**/*.js', './src/index.js', './public/index.html'],
+  css: ['./src/tailwind.css'],
+  // Include any special characters you're using in this regular expression
+  defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
+});
+module.exports = {
+  plugins: [
+    require('tailwindcss')('./tailwind.config.js'),
+    require('autoprefixer'),
+    ...(process.env.NODE_ENV === 'production' ? [purgecss] : []),
+  ],
+};
+"
+`;

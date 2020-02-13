@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseCommand commands getConfig should throw an error when no config is found 1`] = `[Error: Config not found. Tried to look for a .nbxrc, .nbxrc.json, .nbxrc.yaml, .nbxrc.yml, .nbxrc.js]`;
+
+exports[`BaseCommand commands runWithSpinner should fail on error 1`] = `
+Array [
+  "Should be good",
+  "FAILED !!!",
+]
+`;
+
+exports[`BaseCommand commands runWithSpinner should not double success 1`] = `
+Array [
+  "Should be good",
+  "Yay, done.",
+]
+`;
+
+exports[`BaseCommand commands runWithSpinner should return the function value 1`] = `
+Array [
+  "Should be good",
+  "Yay, done.",
+]
+`;
+
+exports[`BaseCommand commands runWithSpinner should success automatically 1`] = `
+Array [
+  "Should be good",
+  "The step was done without any error.",
+]
+`;
+
+exports[`BaseCommand flags help should be set to h 1`] = `
+Array [
+  "USAGE
+  $ nbx [FIRSTARG] [SECONDARG]
+
+OPTIONS
+  -h, --help      show CLI help
+  -v, --verbose   Verbose output
+  --[no-]spinner  Enable spinner in cli output, true by default",
+  "",
+]
+`;
+
+exports[`BaseCommand flags help should be set to help 1`] = `
+Array [
+  "USAGE
+  $ nbx [FIRSTARG] [SECONDARG]
+
+OPTIONS
+  -h, --help      show CLI help
+  -v, --verbose   Verbose output
+  --[no-]spinner  Enable spinner in cli output, true by default",
+  "",
+]
+`;
+
+exports[`BaseCommand flags verbose should print args when run 1`] = `
+Array [
+  "vvv -----[ args ]----- vvv",
+  Object {
+    "firstArg": "firstArg",
+    "secondArg": "secondArg",
+  },
+  "^^^ -----[ args ]----- ^^^",
+  "vvv -----[ argv ]----- vvv",
+  Array [
+    "firstArg",
+    "secondArg",
+  ],
+  "^^^ -----[ argv ]----- ^^^",
+  "vvv -----[ flags ]----- vvv",
+  Object {
+    "spinner": true,
+    "verbose": true,
+  },
+  "^^^ -----[ flags ]----- ^^^",
+  "vvv -----[ SAMPLE ]----- vvv",
+  Object {
+    "code": "aaaa",
+  },
+  "^^^ -----[ SAMPLE ]----- ^^^",
+]
+`;
+
+exports[`MyNoSpinner should display the start message 1`] = `
+Array [
+  "hello from the spinner",
+]
+`;
+
+exports[`MyNoSpinner should display the start message and fail message 1`] = `
+Array [
+  "hello from the spinner",
+  "FAIL",
+]
+`;
+
+exports[`MyNoSpinner should display the start message and success message 1`] = `
+Array [
+  "hello from the spinner",
+  "SUCCESS",
+]
+`;
+
+exports[`MyNoSpinner should display the start message and success message 2`] = `
+Array [
+  "hello from the spinner",
+  "WARNING",
+  "SUCCESS",
+]
+`;

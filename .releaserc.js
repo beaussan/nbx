@@ -34,6 +34,7 @@ module.exports = {
             ':iphone:',
             ':pencil2:',
             ':bento:',
+            ':arrow_up:',
           ],
         },
         releaseNotes: {

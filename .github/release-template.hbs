@@ -188,6 +188,14 @@
 {{/each}}
 {{/if}}
 
+{{#if arrow_up}}
+## ⬆️ Upgraded dependencies
+
+{{#each arrow_up}}
+- {{> commitTemplate}}
+{{/each}}
+{{/if}}
+
 {{#if bento}}
 ## 🍱 Added or updated assets
 

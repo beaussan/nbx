@@ -4,6 +4,7 @@ import { print } from 'gluegun';
 
 export interface BaseCommandFlags {
   verbose: boolean;
+  spinner: boolean;
 }
 
 export interface NbxConfig {
@@ -13,9 +14,48 @@ export interface NbxConfig {
   };
 }
 
+export interface SpinnerInterface {
+  warn: (message: string) => void;
+  fail: (message: string) => void;
+  succeed: (message?: string) => void;
+  isSpinning: boolean;
+}
+
+export class MyNoSpinner implements SpinnerInterface {
+  get isSpinning(): boolean {
+    return this._isSpinning;
+  }
+
+  private _isSpinning = false;
+
+  constructor(message: string) {
+    this._isSpinning = true;
+    print.info(message);
+  }
+
+  public fail(message: string): void {
+    this._isSpinning = false;
+    print.error(message);
+  }
+
+  public succeed(message?: string): void {
+    this._isSpinning = false;
+    print.success(message ?? 'The step was done without any error.');
+  }
+
+  public warn(message: string): void {
+    print.warning(message);
+  }
+}
+
 export abstract class BaseCommand extends Command {
   static flags = {
     verbose: flags.boolean({ char: 'v', description: 'Verbose output' }),
+    spinner: flags.boolean({
+      description: 'Enable spinner in cli output, true by default',
+      allowNo: true,
+      default: true,
+    }),
     help: flags.help({ char: 'h' }),
   };
 
@@ -38,13 +78,21 @@ export abstract class BaseCommand extends Command {
   }
 
   vprint(value: any, title?: string) {
-    if (this.flags && this.flags.verbose) {
+    if (this.flags?.verbose) {
       this.tools.print.debug(value, title);
     }
   }
 
-  async runWithSpinner(name: string, func: (spinner: any) => Promise<any>): Promise<any> {
-    const spinner = this.tools.print.spin(name);
+  async runWithSpinner<T>(
+    name: string,
+    func: (spinner: SpinnerInterface) => Promise<T>,
+  ): Promise<T> {
+    let spinner: SpinnerInterface;
+    if (this.flags?.spinner) {
+      spinner = this.tools.print.spin(name);
+    } else {
+      spinner = new MyNoSpinner(name);
+    }
     try {
       const maybeRet = await func(spinner);
       if (spinner.isSpinning) {
@@ -63,7 +111,9 @@ export abstract class BaseCommand extends Command {
     const explorer = cosmic('nbx');
     const data = await explorer.search();
     if (!data || data.isEmpty || !data.config) {
-      this.error('Config not found. Tried to look for a .nbxrc, .nbxrc.json, .nbxrc.yaml, .nbxrc.yml, .nbxrc.js');
+      this.error(
+        'Config not found. Tried to look for a .nbxrc, .nbxrc.json, .nbxrc.yaml, .nbxrc.yml, .nbxrc.js',
+      );
     }
     return {
       config: data?.config,

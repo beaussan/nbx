@@ -54,7 +54,10 @@ export default class Tailwind extends BaseAddCommand {
 
       if (shouldCommit) {
         await add({ filepath: 'tailwind.config.js', dir: '.' });
-        await commit({ dir: '.', message: ':wrench: add tailwind config file' });
+        await commit({
+          dir: '.',
+          message: ':wrench: add tailwind config file',
+        });
       }
     });
     await this.runWithSpinner('Generating postcss', async () => {
@@ -109,8 +112,8 @@ module.exports = {
           ...packageJsonWithDeps.scripts,
           'start': 'npm-run-all -p start:css start:js',
           'build': 'npm-run-all build:css build:js',
-          'start:js': 'react-scripts start',
-          'build:js': 'react-scripts build',
+          'start:js': packageJsonWithDeps.scripts.start,
+          'build:js': packageJsonWithDeps.scripts.build,
           'start:css': 'postcss src/css/tailwind.src.css -o src/tailwind.css -w',
           'build:css': 'postcss src/css/tailwind.src.css -o src/tailwind.css --env production',
         },
@@ -120,7 +123,10 @@ module.exports = {
 
       if (shouldCommit) {
         await add({ filepath: 'package.json', dir: '.' });
-        await commit({ dir: '.', message: ':wrench: add script for tailwind to package.json' });
+        await commit({
+          dir: '.',
+          message: ':wrench: add script for tailwind to package.json',
+        });
       }
     });
 
@@ -129,7 +135,10 @@ module.exports = {
 
       if (shouldCommit) {
         await add({ filepath: '.gitignore', dir: '.' });
-        await commit({ dir: '.', message: ':see_no_evil: add generated tailwind to .gitignore' });
+        await commit({
+          dir: '.',
+          message: ':see_no_evil: add generated tailwind to .gitignore',
+        });
       }
     });
   }

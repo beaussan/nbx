@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wall command should download wallpaper and console output 1`] = `
+Array [
+  "Searching wallpapers",
+  "The step was done without any error.",
+  "Downloading wallpaper",
+  "Successfully wrote wallhaven-thing.jpg.",
+]
+`;
+
+exports[`wall command should download wallpaper and console output to specific file 1`] = `
+Array [
+  "Searching wallpapers",
+  "The step was done without any error.",
+  "Downloading wallpaper",
+  "Successfully wrote wall.jpg.",
+]
+`;
+
+exports[`wall command should print a warning when output exists 1`] = `
+Array [
+  "Searching wallpapers",
+  "The step was done without any error.",
+  "Downloading wallpaper",
+  "The file wall.jpg already exist",
+  "The flag force was not set, aborting",
+]
+`;
+
+exports[`wall command should print a warning when output exists with the force flag 1`] = `
+Array [
+  "Searching wallpapers",
+  "The step was done without any error.",
+  "Downloading wallpaper",
+  "Overriding wall.jpg",
+  "Successfully wrote wall.jpg.",
+]
+`;
+
+exports[`wall command should print help correctly 1`] = `
+Array [
+  "download a wallpaper from wallhaven using search
+",
+  "USAGE
+  $ nbx wall TERMS
+
+ARGUMENTS
+  TERMS  The search terms for the wallpaper
+
+OPTIONS
+  -a, --anime          Enable anime category
+  -f, --force          Override the file if found
+  -g, --general        Enable general category
+  -h, --help           show CLI help
+  -o, --output=output  Output for the wallpaper
+  -p, --people         Enable people category
+  -r, --random         Pick one randomly
+  -s, --sketchy        Enables sketchy search
+  -v, --verbose        Verbose output
+  --[no-]spinner       Enable spinner in cli output, true by default
+
+EXAMPLE
+  $ nbx wall -r \\"cat\\" -o \\"wall.jpg\\" -fg
+",
+  "",
+]
+`;
