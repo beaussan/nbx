@@ -56,30 +56,8 @@ exports[`BaseAddCommand addDevDependency should add the dependancy without git 2
 
 exports[`BaseAddCommand gitAddUnstaged should add uncommited changes 1`] = `
 "A  .nbxrc
-A  test.11.md
-A  test.12.md
-A  test.13.md
-A  test.14.md
-A  test.15.md
-A  test.21.md
-A  test.22.md
-A  test.23.md
-A  test.24.md
-A  test.25.md
-A  test.31.md
-A  test.32.md
-A  test.33.md
-A  test.34.md
-A  test.35.md
-A  test.41.md
-A  test.42.md
-A  test.43.md
-A  test.44.md
-A  test.45.md
-A  test.51.md
-A  test.52.md
-A  test.53.md
-A  test.54.md
-A  test.55.md
+A  test.1.md
+A  test.2.md
+A  test.3.md
 "
 `;

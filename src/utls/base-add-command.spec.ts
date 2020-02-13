@@ -10,7 +10,7 @@ let execPath: string;
 const originalCwd = process.cwd();
 const originalLog = console.log;
 
-beforeEach(() => {
+beforeEach(async () => {
   consoleLogOutput = [];
   console.log = (x: any) => consoleLogOutput.push(stripANSI(x));
 
@@ -18,6 +18,8 @@ beforeEach(() => {
   execPath = filesystem.path('/', 'tmp', tmpDirName);
   filesystem.dir(execPath);
   process.chdir(execPath);
+  await system.run('git config --global user.email "you@example.com"');
+  await system.run('git config --global user.name "Your Name"');
 });
 afterEach(() => {
   console.log = originalLog;
@@ -259,7 +261,9 @@ describe('BaseAddCommand', () => {
     it('should add uncommited changes', async () => {
       await system.run('git init');
       filesystem.write('.nbxrc', { git: { user: 'aaa', email: 'bbb' } });
-      await system.run('touch test.{1,2,3,4,5}{1,2,3,4,5}.md');
+      await system.run('touch test.1.md');
+      await system.run('touch test.2.md');
+      await system.run('touch test.3.md');
 
       await RunCommand.run(['gitAddUnstaged']);
 
