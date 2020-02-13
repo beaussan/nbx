@@ -1,3 +1,9 @@
+# [v2.2.0](https://github.com/beaussan/nbx/compare/v2.1.1...v2.2.0) (2020-02-13)
+
+## ✨ New Features
+
+- [`0ad7e16`](https://github.com/beaussan/nbx/commit/0ad7e16)  add test, codecov and fix bugs
+
 # [v2.1.1](https://github.com/beaussan/nbx/compare/v2.1.0...v2.1.1) (2020-02-06)
 
 ## 🚑 Critical Hotfixes
