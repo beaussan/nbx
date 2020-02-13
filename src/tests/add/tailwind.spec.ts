@@ -4,7 +4,7 @@ import * as prompts from 'prompts';
 import * as latestVersion from 'latest-version';
 import Tailwind from '../../commands/add/tailwind';
 
-jest.setTimeout(30000);
+jest.setTimeout(60000);
 
 /* eslint-disable no-console,max-nested-callbacks,@typescript-eslint/ban-ts-ignore */
 let consoleLogOutput: string[];
