@@ -18,7 +18,7 @@
     "colors": "1.4.0",
     "cosmiconfig": "6.0.0",
     "gluegun": "4.1.2",
-    "isomorphic-git": "0.78.3",
+    "isomorphic-git": "0.78.4",
     "latest-version": "5.1.0",
     "prompts": "2.3.0",
     "tslib": "1.10.0"
