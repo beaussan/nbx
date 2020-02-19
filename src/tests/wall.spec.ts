@@ -2,7 +2,7 @@ import { filesystem } from 'gluegun';
 import Wall from '../commands/wall';
 const stripANSI = require('strip-ansi');
 
-jest.setTimeout(30000);
+jest.setTimeout(90000);
 /* eslint-disable no-console,max-nested-callbacks,@typescript-eslint/ban-ts-ignore */
 let consoleLogOutput: string[];
 let execPath: string;

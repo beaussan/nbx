@@ -18,10 +18,6 @@ beforeEach(async () => {
   execPath = filesystem.path('/', 'tmp', tmpDirName);
   filesystem.dir(execPath);
   process.chdir(execPath);
-  try {
-    await system.run('git config --global user.email "you@example.com"');
-    await system.run('git config --global user.name "Your Name"');
-  } catch {}
 });
 afterEach(() => {
   console.log = originalLog;
@@ -58,6 +54,10 @@ const initWithConfigAndCommit = async () => {
   filesystem.write('package.json', {});
   await system.run('touch yarn.lock');
   await system.run('git add * .nbxrc');
+  try {
+    await system.run('git config user.email "you@example.com"');
+    await system.run('git config user.name "Your Name"');
+  } catch {}
   await system.run('git commit -m "init state"');
 };
 
@@ -148,6 +148,10 @@ describe('BaseAddCommand', () => {
       it(`should erro when ${action.name}`, async () => {
         filesystem.write('.nbxrc', { git: { user: 'aaa', email: 'bbb' } });
         await system.run('git init');
+        try {
+          await system.run('git config user.email "you@example.com"');
+          await system.run('git config user.name "Your Name"');
+        } catch {}
         for (const step of action.actions) {
           // eslint-disable-next-line no-await-in-loop
           await system.run(step);
@@ -178,7 +182,10 @@ describe('BaseAddCommand', () => {
       filesystem.write('.nbxrc', { git: { user: 'aaa', email: 'bbb' } });
       await system.run('git init');
       await system.run('git add .nbxrc');
-      await system.run('pwd');
+      try {
+        await system.run('git config user.email "you@example.com"');
+        await system.run('git config user.name "Your Name"');
+      } catch {}
       await system.run('git commit -m "initial commit"');
       await system.run('git status');
       await RunCommand.run(['initGit']);
@@ -252,6 +259,10 @@ describe('BaseAddCommand', () => {
       filesystem.write('.nbxrc', { git: { user: 'aaa', email: 'bbb' } });
       await system.run('touch test.md');
       await system.run('git add * .nbxrc');
+      try {
+        await system.run('git config user.email "you@example.com"');
+        await system.run('git config user.name "Your Name"');
+      } catch {}
       await system.run('git commit -m "test"');
       const before = await system.run('git status -s');
 
