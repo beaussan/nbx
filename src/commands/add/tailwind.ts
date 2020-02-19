@@ -1,11 +1,8 @@
 import { BaseCommand } from '../../utls/base-command';
 import { system, filesystem, patching } from 'gluegun';
 import * as prompts from 'prompts';
-import * as fs from 'fs';
-import { plugins, add, commit } from 'isomorphic-git';
+import { add, commit } from 'isomorphic-git';
 import { BaseAddCommand } from '../../utls/base-add-command';
-
-plugins.set('fs', fs);
 
 export default class Tailwind extends BaseAddCommand {
   static description = 'add tailwindcss to a project';

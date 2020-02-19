@@ -1,7 +1,10 @@
 import { BaseCommand } from './base-command';
-import { add, commit, config as gitConfig, statusMatrix } from 'isomorphic-git';
+import { add, plugins, commit, config as gitConfig, statusMatrix } from 'isomorphic-git';
 import * as latestVersion from 'latest-version';
 import { filesystem, system } from 'gluegun';
+import * as fs from 'fs';
+
+plugins.set('fs', fs);
 
 export abstract class BaseAddCommand extends BaseCommand {
   static flags = {
