@@ -36,7 +36,7 @@ const initWithConfigAndCommit = async (packageJson = {}) => {
   await system.run('touch yarn.lock');
   await system.run('echo node_modules > .gitignore');
   await system.run('git add * .nbxrc .gitignore');
-  await system.run('git commit -m "init state" --author="Dummy <dummy@noop.noop>');
+  await system.run('git commit -m "init state" --author="Dummy <dummy@noop.noop>"');
 };
 
 describe('tailwind', () => {
