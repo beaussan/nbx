@@ -1,3 +1,25 @@
+# [v2.3.0](https://github.com/beaussan/nbx/compare/v2.2.0...v2.3.0) (2020-02-19)
+
+## ✨ New Features
+
+- [`f31dace`](https://github.com/beaussan/nbx/commit/f31dace)  add dep command 
+
+## ⬆️ Upgraded dependencies
+
+- [`3eb2443`](https://github.com/beaussan/nbx/commit/3eb2443)  Upgrade dependency @oclif/config to v1.14.0 
+- [`2940f69`](https://github.com/beaussan/nbx/commit/2940f69)  Upgrade dependency @types/node to v10.17.15 
+- [`01c035d`](https://github.com/beaussan/nbx/commit/01c035d)  Upgrade dependency colors to v1.4.0 
+- [`ec5395c`](https://github.com/beaussan/nbx/commit/ec5395c)  Upgrade dependency semantic-release-gitmoji to v1.3.3 
+- [`8e71cee`](https://github.com/beaussan/nbx/commit/8e71cee)  Upgrade dependency eslint to v6 
+- [`57cddbc`](https://github.com/beaussan/nbx/commit/57cddbc)  Upgrade dependency globby to v11 
+- [`9e565f7`](https://github.com/beaussan/nbx/commit/9e565f7)  Upgrade dependency husky to v4.2.3 
+- [`19584a1`](https://github.com/beaussan/nbx/commit/19584a1)  Upgrade dependency semantic-release to v17.0.3 
+- [`eaafe6c`](https://github.com/beaussan/nbx/commit/eaafe6c)  Upgrade dependency axios to v0.19.2 
+- [`42314fa`](https://github.com/beaussan/nbx/commit/42314fa)  Upgrade dependency isomorphic-git to v0.78.4 
+- [`f2bb21d`](https://github.com/beaussan/nbx/commit/f2bb21d)  Upgrade dependency prompts to v2.3.1 
+- [`c578993`](https://github.com/beaussan/nbx/commit/c578993)  Upgrade dependency semantic-release to v17.0.4 
+- [`b40c654`](https://github.com/beaussan/nbx/commit/b40c654)  Upgrade dependency ts-jest to v25.2.1
+
 # [v2.2.0](https://github.com/beaussan/nbx/compare/v2.1.1...v2.2.0) (2020-02-13)
 
 ## ✨ New Features
