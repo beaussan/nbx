@@ -20,10 +20,6 @@ beforeEach(async () => {
   execPath = filesystem.path('/', 'tmp', tmpDirName);
   filesystem.dir(execPath);
   process.chdir(execPath);
-  try {
-    await system.run('git config --global user.email "you@example.com"');
-    await system.run('git config --global user.name "Your Name"');
-  } catch {}
 });
 afterEach(() => {
   console.log = originalLog;
@@ -40,7 +36,7 @@ const initWithConfigAndCommit = async (packageJson = {}) => {
   await system.run('touch yarn.lock');
   await system.run('echo node_modules > .gitignore');
   await system.run('git add * .nbxrc .gitignore');
-  await system.run('git commit -m "init state"');
+  await system.run('git commit -m "init state" --author="Dummy <dummy@noop.noop>');
 };
 
 describe('tailwind', () => {

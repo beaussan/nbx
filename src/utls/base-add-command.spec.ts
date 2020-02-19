@@ -18,10 +18,6 @@ beforeEach(async () => {
   execPath = filesystem.path('/', 'tmp', tmpDirName);
   filesystem.dir(execPath);
   process.chdir(execPath);
-  try {
-    await system.run('git config --global user.email "you@example.com"');
-    await system.run('git config --global user.name "Your Name"');
-  } catch {}
 });
 afterEach(() => {
   console.log = originalLog;
@@ -58,7 +54,7 @@ const initWithConfigAndCommit = async () => {
   filesystem.write('package.json', {});
   await system.run('touch yarn.lock');
   await system.run('git add * .nbxrc');
-  await system.run('git commit -m "init state"');
+  await system.run('git commit -m "init state" --author="Dummy <dummy@noop.noop>"');
 };
 
 describe('BaseAddCommand', () => {
@@ -128,7 +124,7 @@ describe('BaseAddCommand', () => {
           'touch test.md',
           'git add test.md',
           'git add .nbxrc',
-          'git commit -m "test commit"',
+          'git commit -m "test commit" --author="Dummy <dummy@noop.noop>',
           'echo hello > test.md',
         ],
       },
@@ -138,7 +134,7 @@ describe('BaseAddCommand', () => {
           'touch test.md',
           'git add test.md',
           'git add .nbxrc',
-          'git commit -m "test commit"',
+          'git commit -m "test commit" --author="Dummy <dummy@noop.noop>',
           'rm -f test.md',
         ],
       },
@@ -179,7 +175,7 @@ describe('BaseAddCommand', () => {
       await system.run('git init');
       await system.run('git add .nbxrc');
       await system.run('pwd');
-      await system.run('git commit -m "initial commit"');
+      await system.run('git commit -m "initial commit" --author="Dummy <dummy@noop.noop>');
       await system.run('git status');
       await RunCommand.run(['initGit']);
       const gitConfig = filesystem.read('.git/config');
@@ -252,7 +248,7 @@ describe('BaseAddCommand', () => {
       filesystem.write('.nbxrc', { git: { user: 'aaa', email: 'bbb' } });
       await system.run('touch test.md');
       await system.run('git add * .nbxrc');
-      await system.run('git commit -m "test"');
+      await system.run('git commit -m "test" --author="Dummy <dummy@noop.noop>');
       const before = await system.run('git status -s');
 
       await RunCommand.run(['gitAddUnstaged']);
