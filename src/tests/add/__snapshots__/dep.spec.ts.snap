@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dep should fail if dependancy is already in package.json 1`] = `[Error: Config not found. Tried to look for a .nbxrc, .nbxrc.json, .nbxrc.yaml, .nbxrc.yml, .nbxrc.js]`;
+
+exports[`dep should fail if dev dependancy is already in package.json 1`] = `[Error: chalk is already installed in this project.]`;
+
+exports[`dep should fail if no package.json found 1`] = `[Error: There is no package.json not found in the current folder]`;
+
+exports[`dep should print help correctly 1`] = `
+Array [
+  "proxy to yarn add, plus gitmoji commit
+",
+  "USAGE
+  $ nbx add:dep DEP
+
+ARGUMENTS
+  DEP  The dependency to install
+
+OPTIONS
+  -D, --dev       install as a dev dependency
+  -h, --help      show CLI help
+  -v, --verbose   Verbose output
+  --[no-]spinner  Enable spinner in cli output, true by default
+
+EXAMPLES
+  $ nbx add:dep -D eslint
+  $ nbx add:dep --dev eslint
+  $ nbx add:dep chalk",
+  "",
+]
+`;
+
+exports[`dep should work with a dev dependency 1`] = `
+Array [
+  "Adding chalk as a dev dependency",
+  "The step was done without any error.",
+]
+`;
+
+exports[`dep should work with dependency 1`] = `
+Array [
+  "Adding chalk as a dependency",
+  "The step was done without any error.",
+]
+`;
