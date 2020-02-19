@@ -4,7 +4,7 @@ import * as prompts from 'prompts';
 import * as latestVersion from 'latest-version';
 import Prettier from '../../commands/add/prettier';
 
-jest.setTimeout(30000);
+jest.setTimeout(90000);
 
 /* eslint-disable no-console,max-nested-callbacks,@typescript-eslint/ban-ts-ignore */
 let consoleLogOutput: string[];
@@ -36,7 +36,11 @@ const initWithConfigAndCommit = async () => {
   await system.run('touch yarn.lock');
   await system.run('echo node_modules > .gitignore');
   await system.run('git add * .nbxrc .gitignore');
-  await system.run('git commit -m "init state" --author="Dummy <dummy@noop.noop>"');
+  try {
+    await system.run('git config user.email "you@example.com"');
+    await system.run('git config user.name "Your Name"');
+  } catch {}
+  await system.run('git commit -m "init state"');
 };
 
 describe('prettier', () => {

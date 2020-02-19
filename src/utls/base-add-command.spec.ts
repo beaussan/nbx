@@ -54,7 +54,11 @@ const initWithConfigAndCommit = async () => {
   filesystem.write('package.json', {});
   await system.run('touch yarn.lock');
   await system.run('git add * .nbxrc');
-  await system.run('git commit -m "init state" --author="Dummy <dummy@noop.noop>"');
+  try {
+    await system.run('git config user.email "you@example.com"');
+    await system.run('git config user.name "Your Name"');
+  } catch {}
+  await system.run('git commit -m "init state"');
 };
 
 describe('BaseAddCommand', () => {
@@ -124,7 +128,7 @@ describe('BaseAddCommand', () => {
           'touch test.md',
           'git add test.md',
           'git add .nbxrc',
-          'git commit -m "test commit" --author="Dummy <dummy@noop.noop>"',
+          'git commit -m "test commit"',
           'echo hello > test.md',
         ],
       },
@@ -134,7 +138,7 @@ describe('BaseAddCommand', () => {
           'touch test.md',
           'git add test.md',
           'git add .nbxrc',
-          'git commit -m "test commit" --author="Dummy <dummy@noop.noop>"',
+          'git commit -m "test commit"',
           'rm -f test.md',
         ],
       },
@@ -144,6 +148,10 @@ describe('BaseAddCommand', () => {
       it(`should erro when ${action.name}`, async () => {
         filesystem.write('.nbxrc', { git: { user: 'aaa', email: 'bbb' } });
         await system.run('git init');
+        try {
+          await system.run('git config user.email "you@example.com"');
+          await system.run('git config user.name "Your Name"');
+        } catch {}
         for (const step of action.actions) {
           // eslint-disable-next-line no-await-in-loop
           await system.run(step);
@@ -174,8 +182,11 @@ describe('BaseAddCommand', () => {
       filesystem.write('.nbxrc', { git: { user: 'aaa', email: 'bbb' } });
       await system.run('git init');
       await system.run('git add .nbxrc');
-      await system.run('pwd');
-      await system.run('git commit -m "initial commit" --author="Dummy <dummy@noop.noop>"');
+      try {
+        await system.run('git config user.email "you@example.com"');
+        await system.run('git config user.name "Your Name"');
+      } catch {}
+      await system.run('git commit -m "initial commit"');
       await system.run('git status');
       await RunCommand.run(['initGit']);
       const gitConfig = filesystem.read('.git/config');
@@ -248,7 +259,11 @@ describe('BaseAddCommand', () => {
       filesystem.write('.nbxrc', { git: { user: 'aaa', email: 'bbb' } });
       await system.run('touch test.md');
       await system.run('git add * .nbxrc');
-      await system.run('git commit -m "test" --author="Dummy <dummy@noop.noop>"');
+      try {
+        await system.run('git config user.email "you@example.com"');
+        await system.run('git config user.name "Your Name"');
+      } catch {}
+      await system.run('git commit -m "test"');
       const before = await system.run('git status -s');
 
       await RunCommand.run(['gitAddUnstaged']);
