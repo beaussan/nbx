@@ -1,16 +1,19 @@
 # nbx
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 My own personal cli
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/nbx.svg)](https://npmjs.org/package/@beaussan/nbx)
+[![Version](https://img.shields.io/npm/v/@beaussan/nbx.svg)](https://npmjs.org/package/@beaussan/nbx)
 [![CircleCI](https://circleci.com/gh/beaussan/nbx/tree/master.svg?style=shield)](https://circleci.com/gh/beaussan/nbx/tree/master)
 [![Codecov](https://codecov.io/gh/beaussan/nbx/branch/master/graph/badge.svg)](https://codecov.io/gh/beaussan/nbx)
-[![Downloads/week](https://img.shields.io/npm/dw/nbx.svg)](https://npmjs.org/package/@beaussan/nbx)
-[![License](https://img.shields.io/npm/l/nbx.svg)](https://github.com/beaussan/nbx/blob/master/package.json)
+[![Downloads/week](https://img.shields.io/npm/dw/@beaussan/nbx.svg)](https://npmjs.org/package/@beaussan/nbx)
+[![License](https://img.shields.io/npm/l/@beaussan/nbx.svg)](https://github.com/beaussan/nbx/blob/master/package.json)
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=shield)](#contributors-)
+
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- toc -->
 
@@ -127,6 +130,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

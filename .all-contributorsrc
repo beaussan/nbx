@@ -18,6 +18,8 @@
     }
   ],
   "contributorsPerLine": 7,
+  "commitConvention": "gitmoji",
+  "badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=shield)](#contributors-)",
   "projectName": "nbx",
   "projectOwner": "beaussan",
   "repoType": "github",
