@@ -1,10 +1,8 @@
 import { BaseCommand } from './base-command';
-import { add, plugins, commit, config as gitConfig, statusMatrix } from 'isomorphic-git';
+import { add, commit, setConfig, statusMatrix } from 'isomorphic-git';
 import * as latestVersion from 'latest-version';
 import { filesystem, system } from 'gluegun';
 import * as fs from 'fs';
-
-plugins.set('fs', fs);
 
 export abstract class BaseAddCommand extends BaseCommand {
   static flags = {
@@ -20,12 +18,14 @@ export abstract class BaseAddCommand extends BaseCommand {
       this.error('Missing config key git.email for git commits');
     }
     try {
-      await gitConfig({
+      await setConfig({
+        fs,
         dir: '.',
         path: 'user.name',
         value: config?.git?.user,
       });
-      await gitConfig({
+      await setConfig({
+        fs,
         dir: '.',
         path: 'user.email',
         value: config?.git?.email,
@@ -33,12 +33,24 @@ export abstract class BaseAddCommand extends BaseCommand {
     } catch {
       this.error('Could not set git config. Maybe the command was not run in a git repository.');
     }
-    const changes = (await statusMatrix({ dir: '.', pattern: '**' })).filter(
-      ([_, head, workdir]) => head !== workdir,
+    const changes = (await statusMatrix({ dir: '.', fs })).filter(
+      ([, head, workdir]) => head !== workdir,
     );
     if (changes.length > 0) {
       this.error('There is unsaved changed in the git repository, aborting');
     }
+  }
+
+  async gitAdd({ filepath, dir = '.' }: { filepath: string; dir?: string }) {
+    await add({ filepath, dir, fs });
+  }
+
+  async gitCommit({ message }: { message: string }) {
+    await commit({
+      dir: '.',
+      fs,
+      message,
+    });
   }
 
   hasDirPackageJson() {
@@ -62,10 +74,10 @@ export abstract class BaseAddCommand extends BaseCommand {
   }
 
   async gitAddUnstaged() {
-    const commitsPromice = (await statusMatrix({ dir: '.', pattern: '**' }))
-      .filter(([_, head, workdir]) => head !== workdir)
+    const commitsPromice = (await statusMatrix({ dir: '.', fs }))
+      .filter(([, head, workdir]) => head !== workdir)
       .map(arr => arr[0])
-      .map(filepath => add({ filepath, dir: '.' }));
+      .map(filepath => this.gitAdd({ filepath }));
 
     await Promise.all(commitsPromice);
   }
@@ -75,10 +87,9 @@ export abstract class BaseAddCommand extends BaseCommand {
       const versionToInstall = await latestVersion(name);
       await system.exec(`yarn add -D ${name}@${versionToInstall}`);
       if (shouldCommit) {
-        await add({ filepath: 'package.json', dir: '.' });
-        await add({ filepath: 'yarn.lock', dir: '.' });
-        await commit({
-          dir: '.',
+        await this.gitAdd({ filepath: 'package.json' });
+        await this.gitAdd({ filepath: 'yarn.lock' });
+        await this.gitCommit({
           message: `:heavy_plus_sign: add ${name}@${versionToInstall} as a dev dependency`,
         });
       }
@@ -90,10 +101,9 @@ export abstract class BaseAddCommand extends BaseCommand {
       const versionToInstall = await latestVersion(name);
       await system.exec(`yarn add ${name}@${versionToInstall}`);
       if (shouldCommit) {
-        await add({ filepath: 'package.json', dir: '.' });
-        await add({ filepath: 'yarn.lock', dir: '.' });
-        await commit({
-          dir: '.',
+        await this.gitAdd({ filepath: 'package.json' });
+        await this.gitAdd({ filepath: 'yarn.lock' });
+        await this.gitCommit({
           message: `:heavy_plus_sign: add ${name}@${versionToInstall} as a dependency`,
         });
       }

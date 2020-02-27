@@ -1,7 +1,6 @@
 import { BaseCommand } from '../../utls/base-command';
 import { system, filesystem, patching } from 'gluegun';
 import * as prompts from 'prompts';
-import { add, commit } from 'isomorphic-git';
 import { BaseAddCommand } from '../../utls/base-add-command';
 
 export default class Tailwind extends BaseAddCommand {
@@ -50,9 +49,8 @@ export default class Tailwind extends BaseAddCommand {
       await system.exec('yarn tailwindcss init --full');
 
       if (shouldCommit) {
-        await add({ filepath: 'tailwind.config.js', dir: '.' });
-        await commit({
-          dir: '.',
+        await this.gitAdd({ filepath: 'tailwind.config.js' });
+        await this.gitCommit({
           message: ':wrench: add tailwind config file',
         });
       }
@@ -77,8 +75,8 @@ module.exports = {
       );
 
       if (shouldCommit) {
-        await add({ filepath: 'postcss.config.js', dir: '.' });
-        await commit({ dir: '.', message: ':wrench: add postcss config file' });
+        await this.gitAdd({ filepath: 'postcss.config.js' });
+        await this.gitCommit({ message: ':wrench: add postcss config file' });
       }
     });
 
@@ -95,8 +93,8 @@ module.exports = {
       );
 
       if (shouldCommit) {
-        await add({ filepath: 'src/css/tailwind.src.css', dir: '.' });
-        await commit({ dir: '.', message: ':wrench: add tailwind css file' });
+        await this.gitAdd({ filepath: 'src/css/tailwind.src.css' });
+        await this.gitCommit({ message: ':wrench: add tailwind css file' });
       }
     });
 
@@ -119,9 +117,8 @@ module.exports = {
       await filesystem.write(packagePath, finalPackageJson, { jsonIndent: 2 });
 
       if (shouldCommit) {
-        await add({ filepath: 'package.json', dir: '.' });
-        await commit({
-          dir: '.',
+        await this.gitAdd({ filepath: 'package.json' });
+        await this.gitCommit({
           message: ':wrench: add script for tailwind to package.json',
         });
       }
@@ -131,9 +128,8 @@ module.exports = {
       await patching.append('.gitignore', '\n# ignore tailwind generated css\nsrc/tailwind.css');
 
       if (shouldCommit) {
-        await add({ filepath: '.gitignore', dir: '.' });
-        await commit({
-          dir: '.',
+        await this.gitAdd({ filepath: '.gitignore' });
+        await this.gitCommit({
           message: ':see_no_evil: add generated tailwind to .gitignore',
         });
       }
