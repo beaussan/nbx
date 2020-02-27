@@ -2,7 +2,6 @@
 import { BaseCommand } from '../../utls/base-command';
 import { system, filesystem } from 'gluegun';
 import * as prompts from 'prompts';
-import { add, commit } from 'isomorphic-git';
 import { BaseAddCommand } from '../../utls/base-add-command';
 
 export default class Prettier extends BaseAddCommand {
@@ -70,9 +69,8 @@ export default class Prettier extends BaseAddCommand {
       await system.exec('yarn');
 
       if (shouldCommit) {
-        await add({ filepath: 'package.json', dir: '.' });
-        await commit({
-          dir: '.',
+        await this.gitAdd({ filepath: 'package.json' });
+        await this.gitCommit({
           message: ':wrench: add script and husky to package.json',
         });
       }
@@ -92,9 +90,8 @@ export default class Prettier extends BaseAddCommand {
       });
 
       if (shouldCommit) {
-        await add({ filepath: '.prettierrc', dir: '.' });
-        await commit({
-          dir: '.',
+        await this.gitAdd({ filepath: '.prettierrc' });
+        await this.gitCommit({
           message: ':wrench: add prettierrc config file',
         });
       }
@@ -105,8 +102,7 @@ export default class Prettier extends BaseAddCommand {
 
       if (shouldCommit) {
         await this.gitAddUnstaged();
-        await commit({
-          dir: '.',
+        await this.gitCommit({
           message: ':art: apply prettier style to project',
         });
       }
@@ -160,9 +156,8 @@ export default class Prettier extends BaseAddCommand {
       await filesystem.write(eslintPath, finalEslintConfig, { jsonIndent: 2 });
 
       if (shouldCommit) {
-        await add({ filepath: eslintFileName, dir: '.' });
-        await commit({
-          dir: '.',
+        await this.gitAdd({ filepath: eslintFileName });
+        await this.gitCommit({
           message: ':wrench: update eslint to use prettier',
         });
       }
@@ -207,9 +202,8 @@ export default class Prettier extends BaseAddCommand {
       await filesystem.write(tslintPath, finalEslintConfig, { jsonIndent: 2 });
 
       if (shouldCommit) {
-        await add({ filepath: 'tslint.json', dir: '.' });
-        await commit({
-          dir: '.',
+        await this.gitAdd({ filepath: 'tslint.json' });
+        await this.gitCommit({
           message: ':wrench: update tslint to use prettier',
         });
       }
