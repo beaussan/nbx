@@ -44,7 +44,8 @@ module.exports = {
     [
       '@semantic-release/exec',
       {
-        prepareCmd: 'yarn prettier --write README.md && yarn prettier --write CHANGELOG.md',
+        prepareCmd:
+          'yarn update-readme && yarn prettier --write README.md && yarn prettier --write CHANGELOG.md',
       },
     ],
     '@semantic-release/github',
