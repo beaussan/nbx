@@ -1,3 +1,18 @@
+# [v2.3.1](https://github.com/beaussan/nbx/compare/v2.3.0...v2.3.1) (2020-02-27)
+
+## 👽 Update code due to external API changes
+
+- [`635bc9e`](https://github.com/beaussan/nbx/commit/635bc9e)  update to new isomorphic git api 
+
+## ⬆️ Upgraded dependencies
+
+- [`a03fb7d`](https://github.com/beaussan/nbx/commit/a03fb7d)  Upgrade dependency @types/jest to v25.1.3 
+- [`b1130f1`](https://github.com/beaussan/nbx/commit/b1130f1)  Upgrade dependency tslib to v1.11.0 
+- [`76271d1`](https://github.com/beaussan/nbx/commit/76271d1)  Upgrade dependency typescript to v3.8.2 
+- [`348c802`](https://github.com/beaussan/nbx/commit/348c802)  Upgrade dependency isomorphic-git to v0.78.5 
+- [`85cf02a`](https://github.com/beaussan/nbx/commit/85cf02a)  Upgrade dependency @types/node to v10.17.16 
+- [`04ff430`](https://github.com/beaussan/nbx/commit/04ff430)  Upgrade dependency isomorphic-git to v1
+
 # [v2.3.0](https://github.com/beaussan/nbx/compare/v2.2.0...v2.3.0) (2020-02-19)
 
 ## ✨ New Features
