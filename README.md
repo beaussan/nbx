@@ -16,56 +16,92 @@ My own personal cli
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- toc -->
-
-- [nbx](#nbx)
-- [Usage](#usage)
-- [Commands](#commands)
-  <!-- tocstop -->
+* [nbx](#nbx)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @beaussan/nbx
 $ nbx COMMAND
 running command...
 $ nbx (-v|--version|version)
-@beaussan/nbx/2.0.4 linux-x64 node-v13.7.0
+@beaussan/nbx/2.3.1 linux-x64 node-v13.8.0
 $ nbx --help [COMMAND]
 USAGE
   $ nbx COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
+* [`nbx add:dep DEP`](#nbx-adddep-dep)
+* [`nbx add:prettier`](#nbx-addprettier)
+* [`nbx add:tailwind`](#nbx-addtailwind)
+* [`nbx help [COMMAND]`](#nbx-help-command)
+* [`nbx wall TERMS`](#nbx-wall-terms)
 
-- [`nbx add:prettier`](#nbx-addprettier)
-- [`nbx help [COMMAND]`](#nbx-help-command)
-- [`nbx wall TERMS`](#nbx-wall-terms)
+## `nbx add:dep DEP`
+
+proxy to yarn add, plus gitmoji commit
+
+```
+USAGE
+  $ nbx add:dep DEP
+
+ARGUMENTS
+  DEP  The dependency to install
+
+OPTIONS
+  -D, --dev       install as a dev dependency
+  -h, --help      show CLI help
+  -v, --verbose   Verbose output
+  --[no-]spinner  Enable spinner in cli output, true by default
+
+EXAMPLES
+  $ nbx add:dep -D eslint
+  $ nbx add:dep --dev eslint
+  $ nbx add:dep chalk
+```
+
+_See code: [src/commands/add/dep.ts](https://github.com/beaussan/nbx/blob/v2.3.1/src/commands/add/dep.ts)_
 
 ## `nbx add:prettier`
 
-describe the command here
+add prettier to project and format it
 
 ```
 USAGE
   $ nbx add:prettier
 
 OPTIONS
-  -h, --help     show CLI help
-  -v, --verbose  Verbose output
-
-EXAMPLE
-  $ nbx wall
-  hello world from ./src/hello.ts!
+  -h, --help      show CLI help
+  -v, --verbose   Verbose output
+  --[no-]spinner  Enable spinner in cli output, true by default
 ```
 
-_See code: [src/commands/add/prettier.ts](https://github.com/beaussan/nbx/blob/v2.0.4/src/commands/add/prettier.ts)_
+_See code: [src/commands/add/prettier.ts](https://github.com/beaussan/nbx/blob/v2.3.1/src/commands/add/prettier.ts)_
+
+## `nbx add:tailwind`
+
+add tailwindcss to a project
+
+```
+USAGE
+  $ nbx add:tailwind
+
+OPTIONS
+  -h, --help      show CLI help
+  -v, --verbose   Verbose output
+  --[no-]spinner  Enable spinner in cli output, true by default
+```
+
+_See code: [src/commands/add/tailwind.ts](https://github.com/beaussan/nbx/blob/v2.3.1/src/commands/add/tailwind.ts)_
 
 ## `nbx help [COMMAND]`
 
@@ -86,7 +122,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3
 
 ## `nbx wall TERMS`
 
-describe the command here
+download a wallpaper from wallhaven using search
 
 ```
 USAGE
@@ -105,14 +141,13 @@ OPTIONS
   -r, --random         Pick one randomly
   -s, --sketchy        Enables sketchy search
   -v, --verbose        Verbose output
+  --[no-]spinner       Enable spinner in cli output, true by default
 
 EXAMPLE
-  $ nbx wall
-  hello world from ./src/hello.ts!
+  $ nbx wall -r "cat" -o "wall.jpg" -fg
 ```
 
-_See code: [src/commands/wall/index.ts](https://github.com/beaussan/nbx/blob/v2.0.4/src/commands/wall/index.ts)_
-
+_See code: [src/commands/wall/index.ts](https://github.com/beaussan/nbx/blob/v2.3.1/src/commands/wall/index.ts)_
 <!-- commandsstop -->
 
 ## Contributors ✨

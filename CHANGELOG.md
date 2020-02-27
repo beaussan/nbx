@@ -1,3 +1,13 @@
+# [v2.4.0](https://github.com/beaussan/nbx/compare/v2.3.1...v2.4.0) (2020-02-27)
+
+## ✨ New Features
+
+- [`8116e3a`](https://github.com/beaussan/nbx/commit/8116e3a)  add generated changelog to cli 
+
+## ⬆️ Upgraded dependencies
+
+- [`a7823e2`](https://github.com/beaussan/nbx/commit/a7823e2)  Upgrade dependency gluegun to v4.2.0
+
 # [v2.3.1](https://github.com/beaussan/nbx/compare/v2.3.0...v2.3.1) (2020-02-27)
 
 ## 👽 Update code due to external API changes
