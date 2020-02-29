@@ -52,7 +52,7 @@
     "strip-ansi": "6.0.0",
     "ts-jest": "25.2.1",
     "ts-node": "8.6.2",
-    "typescript": "3.8.2"
+    "typescript": "3.8.3"
   },
   "engines": {
     "node": ">=8.0.0"
