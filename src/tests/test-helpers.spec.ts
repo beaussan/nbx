@@ -1,4 +1,3 @@
-import { Command } from '@oclif/command';
 const stripANSI = require('strip-ansi');
 import { filesystem, system } from 'gluegun';
 
@@ -132,7 +131,6 @@ export const expectFailGitCommits = ({
 };
 
 export const expectFailCli = ({
-  assertions = 4,
   before,
   args = [],
   errorMessage,
