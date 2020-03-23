@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`tailwind should print help correctly 1`] = `
+exports[`nbx add:tailwind should error if no react is found 1`] = `Array []`;
+
+exports[`nbx add:tailwind should fail if no package.json found 1`] = `Array []`;
+
+exports[`nbx add:tailwind should print help correctly 1`] = `
 Array [
   "add tailwindcss to a project
 ",
@@ -15,7 +19,7 @@ OPTIONS
 ]
 `;
 
-exports[`tailwind should work on a react application with commits 1`] = `
+exports[`nbx add:tailwind should work on a react application with commits 1`] = `
 "const purgecss = require('@fullhuman/postcss-purgecss')({
   content: ['./src/**/*.jsx', './src/**/*.js', './src/index.js', './public/index.html'],
   css: ['./src/tailwind.css'],
@@ -32,7 +36,32 @@ module.exports = {
 "
 `;
 
-exports[`tailwind should work on a react application without commits 1`] = `
+exports[`nbx add:tailwind should work on a react application with commits 2`] = `
+Array [
+  "Adding @fullhuman/postcss-purgecss as a dev dependency",
+  "The step was done without any error.",
+  "Adding autoprefixer as a dev dependency",
+  "The step was done without any error.",
+  "Adding npm-run-all as a dev dependency",
+  "The step was done without any error.",
+  "Adding postcss-cli as a dev dependency",
+  "The step was done without any error.",
+  "Adding tailwindcss as a dependency",
+  "The step was done without any error.",
+  "Generating tailwind initial config",
+  "The step was done without any error.",
+  "Generating postcss",
+  "The step was done without any error.",
+  "Generating tailwind full css",
+  "The step was done without any error.",
+  "Adding package.json scripts",
+  "The step was done without any error.",
+  "Adding full tailwind css to .gitignore",
+  "The step was done without any error.",
+]
+`;
+
+exports[`nbx add:tailwind should work on a react application without commits 1`] = `
 "const purgecss = require('@fullhuman/postcss-purgecss')({
   content: ['./src/**/*.jsx', './src/**/*.js', './src/index.js', './public/index.html'],
   css: ['./src/tailwind.css'],
@@ -47,4 +76,29 @@ module.exports = {
   ],
 };
 "
+`;
+
+exports[`nbx add:tailwind should work on a react application without commits 2`] = `
+Array [
+  "Adding @fullhuman/postcss-purgecss as a dev dependency",
+  "The step was done without any error.",
+  "Adding autoprefixer as a dev dependency",
+  "The step was done without any error.",
+  "Adding npm-run-all as a dev dependency",
+  "The step was done without any error.",
+  "Adding postcss-cli as a dev dependency",
+  "The step was done without any error.",
+  "Adding tailwindcss as a dependency",
+  "The step was done without any error.",
+  "Generating tailwind initial config",
+  "The step was done without any error.",
+  "Generating postcss",
+  "The step was done without any error.",
+  "Generating tailwind full css",
+  "The step was done without any error.",
+  "Adding package.json scripts",
+  "The step was done without any error.",
+  "Adding full tailwind css to .gitignore",
+  "The step was done without any error.",
+]
 `;
