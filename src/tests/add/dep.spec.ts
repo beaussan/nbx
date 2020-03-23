@@ -1,12 +1,7 @@
 import { filesystem } from 'gluegun';
 import * as latestVersion from 'latest-version';
 import Dep from '../../commands/add/dep';
-import {
-  createDefaultNbxConfig,
-  expectFailCli,
-  expectGitCommits,
-  testCli,
-} from '../test-helpers.spec';
+import { expectFailCli, expectGitCommits, testCli } from '../test-helpers.spec';
 
 jest.setTimeout(90000);
 
@@ -25,26 +20,25 @@ testCli({
         },
       }),
     },
+    /*
+     */
     {
       name: 'fail if dependancy is already in package.json',
       runner: expectFailCli({
         args: ['chalk'],
-        errorMessage: 'chalk is already installed in this project',
-        before: async () => {
-          await createDefaultNbxConfig();
-          filesystem.write('package.json', { dependencies: { chalk: '2.3.2' } });
-        },
+        errorMessage: 'chalk is already installed in this project.',
+        packageJson: { dependencies: { chalk: '2.3.2' } },
+        withGitSetup: true,
       }),
     },
+
     {
       name: 'fail if dev dependancy is already in package.json',
       runner: expectFailCli({
         args: ['chalk', '-D'],
-        errorMessage: 'chalk is already installed in this project',
-        before: async () => {
-          await createDefaultNbxConfig();
-          filesystem.write('package.json', { devDependencies: { chalk: '2.3.2' } });
-        },
+        errorMessage: 'chalk is already installed in this project.',
+        packageJson: { devDependencies: { chalk: '2.3.2' } },
+        withGitSetup: true,
       }),
     },
     {

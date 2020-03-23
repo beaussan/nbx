@@ -20,10 +20,10 @@ export const createDefaultNbxConfig = async () => {
   filesystem.write('.nbxrc', { git: { user: 'aaa', email: 'bbb' } });
 };
 
-export const initWithConfigAndCommit = async () => {
+export const initWithConfigAndCommit = async (packageJson = {}) => {
   await system.run('git init');
   await createDefaultNbxConfig();
-  filesystem.write('package.json', {});
+  filesystem.write('package.json', packageJson);
   await system.run('touch yarn.lock');
   await system.run('echo node_modules > .gitignore');
   await system.run('git add * .nbxrc .gitignore');
@@ -36,16 +36,18 @@ export const initWithConfigAndCommit = async () => {
 
 export const expectGitCommits = ({
   before,
-  args,
   expectGitLog,
   checks,
+  args = [],
+  packageJson = {},
 }: {
-  args: string[];
+  args?: string[];
   expectGitLog: string[] | (() => Promise<any>);
   before?: () => Promise<any>;
   checks?: () => Promise<any>;
+  packageJson?: object;
 }): TestRun => async ({ exec, defaultArgs = [] }) => {
-  await initWithConfigAndCommit();
+  await initWithConfigAndCommit(packageJson);
   await before?.();
 
   try {
@@ -84,20 +86,73 @@ export const expectGitCommits = ({
   await checks?.();
 };
 
+export const expectFailGitCommits = ({
+  before,
+  args = [],
+  checks,
+  errorMessage,
+  packageJson = {},
+}: {
+  args?: string[];
+  errorMessage: string;
+  before?: () => Promise<any>;
+  checks?: () => Promise<any>;
+  packageJson?: object;
+}): TestRun => async ({ exec, defaultArgs = [] }) => {
+  expect.assertions(5);
+  await initWithConfigAndCommit(packageJson);
+
+  try {
+    await before?.();
+
+    await exec([...args, ...defaultArgs]);
+    // eslint-disable-next-line unicorn/catch-error-name
+  } catch (e) {
+    expect(e).toBeDefined();
+    expect(e.message).toBeDefined();
+    expect(e.message).toBe(errorMessage);
+  }
+
+  const after = await system.run('git log --name-status  --format="%s"');
+  const afterSlitted = after
+    .split('\n')
+    .map(val => val.trim())
+    .map(val => stripANSI(val))
+    .filter(val => val !== '');
+
+  expect(afterSlitted).toStrictEqual([
+    'init state',
+    'A\t.gitignore',
+    'A\t.nbxrc',
+    'A\tpackage.json',
+    'A\tyarn.lock',
+  ]);
+
+  await checks?.();
+};
+
 export const expectFailCli = ({
   assertions = 4,
   before,
-  args,
+  args = [],
   errorMessage,
+  withGitSetup = false,
+  packageJson = {},
 }: {
   assertions?: number;
   before?: () => Promise<any>;
-  args: string[];
+  args?: string[];
   errorMessage: string;
+  withGitSetup?: boolean;
+  packageJson?: object;
 }): TestRun => async ({ exec, defaultArgs = [] }) => {
-  expect.assertions(assertions);
+  if (withGitSetup) {
+    await initWithConfigAndCommit(packageJson);
+  }
   try {
-    await before?.();
+    if (before) {
+      await before();
+    }
 
     await exec([...args, ...defaultArgs]);
     // eslint-disable-next-line unicorn/catch-error-name
@@ -148,6 +203,6 @@ export const testCli = ({ tests, runCommand, name, defaultArgs }: TestCliParams)
   });
 };
 
-const testHelp = (command: Command) => {
-  it('');
-};
+test('testUtils should compile', () => {
+  expect(true).toBeTruthy();
+});
