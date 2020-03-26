@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  run-with-retry: kimh/run-with-retry@1.0.0
 commands:
   setup_deps:
     description: 'Setup cache and do a yarn install'
@@ -20,8 +22,8 @@ jobs:
       - setup_deps
       - run: ./bin/run --version
       - run: ./bin/run --help
-      - run:
-          name: Testing
+      - run-with-retry/run-with-retry:
+          sleep: 2
           command: yarn test --ci
       - run:
           name: Sending to codecov
