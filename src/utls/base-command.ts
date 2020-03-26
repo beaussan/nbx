@@ -107,7 +107,9 @@ export abstract class BaseCommand extends Command {
   }
 
   async getConfig(): Promise<{ config: NbxConfig; path: string }> {
-    const cosmic = await import('cosmiconfig').then(cosmic => cosmic.cosmiconfig);
+    const cosmic = await import('cosmiconfig').then(
+      (cosmic) => cosmic.cosmiconfig,
+    );
     const explorer = cosmic('nbx');
     const data = await explorer.search();
     if (!data || data.isEmpty || !data.config) {

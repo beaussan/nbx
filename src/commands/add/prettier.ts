@@ -85,9 +85,13 @@ export default class Prettier extends BaseAddCommand {
         trailingComma: 'all',
       };
 
-      await filesystem.write(filesystem.path('.', '.prettierrc'), prettierRcFile, {
-        jsonIndent: 2,
-      });
+      await filesystem.write(
+        filesystem.path('.', '.prettierrc'),
+        prettierRcFile,
+        {
+          jsonIndent: 2,
+        },
+      );
 
       if (shouldCommit) {
         await this.gitAdd({ filepath: '.prettierrc' });
@@ -97,16 +101,19 @@ export default class Prettier extends BaseAddCommand {
       }
     });
 
-    await this.runWithSpinner('Updating code to match prettier style', async () => {
-      await system.exec('yarn format:write');
+    await this.runWithSpinner(
+      'Updating code to match prettier style',
+      async () => {
+        await system.exec('yarn format:write');
 
-      if (shouldCommit) {
-        await this.gitAddUnstaged();
-        await this.gitCommit({
-          message: ':art: apply prettier style to project',
-        });
-      }
-    });
+        if (shouldCommit) {
+          await this.gitAddUnstaged();
+          await this.gitCommit({
+            message: ':art: apply prettier style to project',
+          });
+        }
+      },
+    );
 
     await this.handleMaybeEslint(shouldCommit);
     await this.handleMaybeTslint(shouldCommit);
@@ -132,7 +139,8 @@ export default class Prettier extends BaseAddCommand {
       [
         {
           type: 'confirm',
-          message: 'Eslint found in the project, do you want to add eslint prettier config ?',
+          message:
+            'Eslint found in the project, do you want to add eslint prettier config ?',
           name: 'shouldOverrideEslint',
           initial: true,
         },
@@ -150,7 +158,14 @@ export default class Prettier extends BaseAddCommand {
       const eslintConfig = filesystem.read(eslintPath, 'json');
       const finalEslintConfig = {
         ...eslintConfig,
-        extends: [...eslintConfig.extends, 'plugin:prettier/recommended'],
+        extends: [
+          ...(typeof eslintConfig?.extends === 'string'
+            ? [eslintConfig.extends]
+            : Array.isArray(eslintConfig?.extends)
+            ? eslintConfig.extends
+            : []),
+          'plugin:prettier/recommended',
+        ],
       };
 
       await filesystem.write(eslintPath, finalEslintConfig, { jsonIndent: 2 });
@@ -174,7 +189,8 @@ export default class Prettier extends BaseAddCommand {
       [
         {
           type: 'confirm',
-          message: 'Tslint found in the project, do you want to add tslint prettier config ?',
+          message:
+            'Tslint found in the project, do you want to add tslint prettier config ?',
           name: 'shouldOverrideTslint',
           initial: true,
         },
@@ -192,9 +208,17 @@ export default class Prettier extends BaseAddCommand {
       const tslintConfig = filesystem.read(tslintPath, 'json');
       const finalEslintConfig = {
         ...tslintConfig,
-        extends: [...tslintConfig.extends, 'tslint-plugin-prettier', 'tslint-config-prettier'],
+        extends: [
+          ...(typeof tslintConfig?.extends === 'string'
+            ? [tslintConfig.extends]
+            : Array.isArray(tslintConfig?.extends)
+            ? tslintConfig.extends
+            : []),
+          'tslint-plugin-prettier',
+          'tslint-config-prettier',
+        ],
         rules: {
-          ...tslintConfig.rules,
+          ...(tslintConfig.rules ?? {}),
           prettier: true,
         },
       };

@@ -22,18 +22,34 @@ export default class Wall extends BaseCommand {
   ];
 
   static args = [
-    { name: 'terms', description: 'The search terms for the wallpaper', required: true },
+    {
+      name: 'terms',
+      description: 'The search terms for the wallpaper',
+      required: true,
+    },
   ];
 
   static flags = {
     ...BaseCommand.flags,
     random: flags.boolean({ char: 'r', description: 'Pick one randomly' }),
-    sketchy: flags.boolean({ char: 's', description: 'Enables sketchy search' }),
-    general: flags.boolean({ char: 'g', description: 'Enable general category' }),
+    sketchy: flags.boolean({
+      char: 's',
+      description: 'Enables sketchy search',
+    }),
+    general: flags.boolean({
+      char: 'g',
+      description: 'Enable general category',
+    }),
     anime: flags.boolean({ char: 'a', description: 'Enable anime category' }),
     people: flags.boolean({ char: 'p', description: 'Enable people category' }),
-    output: flags.string({ char: 'o', description: 'Output for the wallpaper' }),
-    force: flags.boolean({ char: 'f', description: 'Override the file if found' }),
+    output: flags.string({
+      char: 'o',
+      description: 'Output for the wallpaper',
+    }),
+    force: flags.boolean({
+      char: 'f',
+      description: 'Override the file if found',
+    }),
   };
 
   async run() {
@@ -49,24 +65,30 @@ export default class Wall extends BaseCommand {
       this.error('You must use at least one category flag');
     }
 
-    const resultFromSearch = await this.runWithSpinner('Searching wallpapers', async () => {
-      const categories = `${booleanToNumber(general)}${booleanToNumber(anime)}${booleanToNumber(
-        people,
-      )}`;
-      const {
-        data: { data },
-      } = await axios.get<{ data: WallhavenItem[] }>('https://wallhaven.cc/api/v1/search', {
-        params: {
-          q: `${terms}`,
-          sorting: random ? 'random' : 'relevance',
-          categories,
-          purity: `1${booleanToNumber(sketchy)}0`,
-          atleast: '1920x1080',
-          ratios: '16x9',
-        },
-      });
-      return data;
-    });
+    const resultFromSearch = await this.runWithSpinner(
+      'Searching wallpapers',
+      async () => {
+        const categories = `${booleanToNumber(general)}${booleanToNumber(
+          anime,
+        )}${booleanToNumber(people)}`;
+        const {
+          data: { data },
+        } = await axios.get<{ data: WallhavenItem[] }>(
+          'https://wallhaven.cc/api/v1/search',
+          {
+            params: {
+              q: `${terms}`,
+              sorting: random ? 'random' : 'relevance',
+              categories,
+              purity: `1${booleanToNumber(sketchy)}0`,
+              atleast: '1920x1080',
+              ratios: '16x9',
+            },
+          },
+        );
+        return data;
+      },
+    );
 
     if (!resultFromSearch || resultFromSearch.length === 0) {
       this.error('No image found, try another search term');
@@ -77,7 +99,7 @@ export default class Wall extends BaseCommand {
 
     const filename = output ? output : `wallhaven-${firstImage.id}.jpg`;
 
-    await this.runWithSpinner('Downloading wallpaper', async spinner => {
+    await this.runWithSpinner('Downloading wallpaper', async (spinner) => {
       if (filesystem.exists(filename)) {
         if (force) {
           spinner.warn(`Overriding ${filename}`);

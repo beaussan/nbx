@@ -15,6 +15,10 @@ export default class Tailwind extends BaseAddCommand {
       this.error('There is no package.json not found in the current folder');
     }
 
+    if (this.hasDependencyInPackageJson('tailwind')) {
+      this.error('Tailwind is already installed in this project.');
+    }
+
     if (!this.hasDependencyInPackageJson('react-scripts')) {
       this.error('This script support only for now create react apps.');
     }
@@ -45,16 +49,19 @@ export default class Tailwind extends BaseAddCommand {
     await this.addDevDependency('postcss-cli', shouldCommit);
     await this.addDependency('tailwindcss', shouldCommit);
 
-    await this.runWithSpinner('Generating tailwind initial config', async () => {
-      await system.exec('yarn tailwindcss init --full');
+    await this.runWithSpinner(
+      'Generating tailwind initial config',
+      async () => {
+        await system.exec('yarn tailwindcss init --full');
 
-      if (shouldCommit) {
-        await this.gitAdd({ filepath: 'tailwind.config.js' });
-        await this.gitCommit({
-          message: ':wrench: add tailwind config file',
-        });
-      }
-    });
+        if (shouldCommit) {
+          await this.gitAdd({ filepath: 'tailwind.config.js' });
+          await this.gitCommit({
+            message: ':wrench: add tailwind config file',
+          });
+        }
+      },
+    );
     await this.runWithSpinner('Generating postcss', async () => {
       await filesystem.write(
         'postcss.config.js',
@@ -109,8 +116,10 @@ module.exports = {
           'build': 'npm-run-all build:css build:js',
           'start:js': packageJsonWithDeps.scripts.start,
           'build:js': packageJsonWithDeps.scripts.build,
-          'start:css': 'postcss src/css/tailwind.src.css -o src/tailwind.css -w',
-          'build:css': 'postcss src/css/tailwind.src.css -o src/tailwind.css --env production',
+          'start:css':
+            'postcss src/css/tailwind.src.css -o src/tailwind.css -w',
+          'build:css':
+            'postcss src/css/tailwind.src.css -o src/tailwind.css --env production',
         },
       };
 
@@ -124,15 +133,21 @@ module.exports = {
       }
     });
 
-    await this.runWithSpinner('Adding full tailwind css to .gitignore', async () => {
-      await patching.append('.gitignore', '\n# ignore tailwind generated css\nsrc/tailwind.css');
+    await this.runWithSpinner(
+      'Adding full tailwind css to .gitignore',
+      async () => {
+        await patching.append(
+          '.gitignore',
+          '\n# ignore tailwind generated css\nsrc/tailwind.css',
+        );
 
-      if (shouldCommit) {
-        await this.gitAdd({ filepath: '.gitignore' });
-        await this.gitCommit({
-          message: ':see_no_evil: add generated tailwind to .gitignore',
-        });
-      }
-    });
+        if (shouldCommit) {
+          await this.gitAdd({ filepath: '.gitignore' });
+          await this.gitCommit({
+            message: ':see_no_evil: add generated tailwind to .gitignore',
+          });
+        }
+      },
+    );
   }
 }

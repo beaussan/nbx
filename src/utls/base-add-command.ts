@@ -31,7 +31,9 @@ export abstract class BaseAddCommand extends BaseCommand {
         value: config?.git?.email,
       });
     } catch {
-      this.error('Could not set git config. Maybe the command was not run in a git repository.');
+      this.error(
+        'Could not set git config. Maybe the command was not run in a git repository.',
+      );
     }
     const changes = (await statusMatrix({ dir: '.', fs })).filter(
       ([, head, workdir]) => head !== workdir,
@@ -76,24 +78,27 @@ export abstract class BaseAddCommand extends BaseCommand {
   async gitAddUnstaged() {
     const commitsPromice = (await statusMatrix({ dir: '.', fs }))
       .filter(([, head, workdir]) => head !== workdir)
-      .map(arr => arr[0])
-      .map(filepath => this.gitAdd({ filepath }));
+      .map((arr) => arr[0])
+      .map((filepath) => this.gitAdd({ filepath }));
 
     await Promise.all(commitsPromice);
   }
 
   async addDevDependency(name: string, shouldCommit: boolean): Promise<void> {
-    await this.runWithSpinner(`Adding ${name} as a dev dependency`, async () => {
-      const versionToInstall = await latestVersion(name);
-      await system.exec(`yarn add -D ${name}@${versionToInstall}`);
-      if (shouldCommit) {
-        await this.gitAdd({ filepath: 'package.json' });
-        await this.gitAdd({ filepath: 'yarn.lock' });
-        await this.gitCommit({
-          message: `:heavy_plus_sign: add ${name}@${versionToInstall} as a dev dependency`,
-        });
-      }
-    });
+    await this.runWithSpinner(
+      `Adding ${name} as a dev dependency`,
+      async () => {
+        const versionToInstall = await latestVersion(name);
+        await system.exec(`yarn add -D ${name}@${versionToInstall}`);
+        if (shouldCommit) {
+          await this.gitAdd({ filepath: 'package.json' });
+          await this.gitAdd({ filepath: 'yarn.lock' });
+          await this.gitCommit({
+            message: `:heavy_plus_sign: add ${name}@${versionToInstall} as a dev dependency`,
+          });
+        }
+      },
+    );
   }
 
   async addDependency(name: string, shouldCommit: boolean): Promise<void> {

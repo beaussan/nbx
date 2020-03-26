@@ -162,7 +162,11 @@ describe('BaseAddCommand', () => {
           await RunCommand.run(['initGit']);
           // eslint-disable-next-line unicorn/catch-error-name
         } catch (e) {
-          expect(e).toEqual(new Error('There is unsaved changed in the git repository, aborting'));
+          expect(e).toEqual(
+            new Error(
+              'There is unsaved changed in the git repository, aborting',
+            ),
+          );
         }
       });
     }
@@ -191,7 +195,9 @@ describe('BaseAddCommand', () => {
       await RunCommand.run(['initGit']);
       const gitConfig = filesystem.read('.git/config');
       expect(gitConfig).toBeDefined();
-      const gitConfigLines = gitConfig?.split('\n')?.map(value => value.trim());
+      const gitConfigLines = gitConfig
+        ?.split('\n')
+        ?.map((value) => value.trim());
       expect(gitConfigLines).toContainEqual('email = bbb');
       expect(gitConfigLines).toContainEqual('name = aaa');
     });
@@ -211,44 +217,70 @@ describe('BaseAddCommand', () => {
 
   describe('hasDependencyInPackageJson', () => {
     it('should return false if no packageJson is in the path', async () => {
-      const result = await RunCommand.run(['hasDependencyInPackageJson', 'testDep']);
+      const result = await RunCommand.run([
+        'hasDependencyInPackageJson',
+        'testDep',
+      ]);
       expect(result).toBeFalsy();
     });
     it('should return false if the dependencies is not in package json', async () => {
       filesystem.write('package.json', { dependencies: {} });
-      const result = await RunCommand.run(['hasDependencyInPackageJson', 'testDep']);
+      const result = await RunCommand.run([
+        'hasDependencyInPackageJson',
+        'testDep',
+      ]);
       expect(result).toBeFalsy();
     });
     it('should return false if there is no dependencies in package json', async () => {
       filesystem.write('package.json', {});
-      const result = await RunCommand.run(['hasDependencyInPackageJson', 'testDep']);
+      const result = await RunCommand.run([
+        'hasDependencyInPackageJson',
+        'testDep',
+      ]);
       expect(result).toBeFalsy();
     });
     it('should return true if no packageJson is in the path', async () => {
       filesystem.write('package.json', { dependencies: { testDep: 'v1.0.0' } });
-      const result = await RunCommand.run(['hasDependencyInPackageJson', 'testDep']);
+      const result = await RunCommand.run([
+        'hasDependencyInPackageJson',
+        'testDep',
+      ]);
       expect(result).toBeTruthy();
     });
   });
 
   describe('hasDevDependencyInPackageJson', () => {
     it('should return false if no packageJson is in the path', async () => {
-      const result = await RunCommand.run(['hasDevDependencyInPackageJson', 'testDep']);
+      const result = await RunCommand.run([
+        'hasDevDependencyInPackageJson',
+        'testDep',
+      ]);
       expect(result).toBeFalsy();
     });
     it('should return false if the dependencies is not in package json', async () => {
       filesystem.write('package.json', { devDependencies: {} });
-      const result = await RunCommand.run(['hasDevDependencyInPackageJson', 'testDep']);
+      const result = await RunCommand.run([
+        'hasDevDependencyInPackageJson',
+        'testDep',
+      ]);
       expect(result).toBeFalsy();
     });
     it('should return false if there is no dependencies in package json', async () => {
       filesystem.write('package.json', {});
-      const result = await RunCommand.run(['hasDevDependencyInPackageJson', 'testDep']);
+      const result = await RunCommand.run([
+        'hasDevDependencyInPackageJson',
+        'testDep',
+      ]);
       expect(result).toBeFalsy();
     });
     it('should return true if no packageJson is in the path', async () => {
-      filesystem.write('package.json', { devDependencies: { testDep: 'v1.0.0' } });
-      const result = await RunCommand.run(['hasDevDependencyInPackageJson', 'testDep']);
+      filesystem.write('package.json', {
+        devDependencies: { testDep: 'v1.0.0' },
+      });
+      const result = await RunCommand.run([
+        'hasDevDependencyInPackageJson',
+        'testDep',
+      ]);
       expect(result).toBeTruthy();
     });
   });
@@ -292,18 +324,25 @@ describe('BaseAddCommand', () => {
       const chalkLatest = await latestVersion('chalk');
 
       await RunCommand.run(['initGit']);
-      await RunCommand.run(['addDevDependency', 'chalk', '--opt', '--no-spinner']);
+      await RunCommand.run([
+        'addDevDependency',
+        'chalk',
+        '--opt',
+        '--no-spinner',
+      ]);
 
       const after = await system.run('git log --name-status  --format="%s" -1');
       const afterSlitted = after
         .split('\n')
-        .map(val => val.trim())
-        .map(val => stripANSI(val))
-        .filter(val => val !== '');
+        .map((val) => val.trim())
+        .map((val) => stripANSI(val))
+        .filter((val) => val !== '');
       const packageJsonFinal = filesystem.read('package.json', 'json');
 
       expect(consoleLogOutput).toMatchSnapshot();
-      expect(packageJsonFinal).toStrictEqual({ devDependencies: { chalk: chalkLatest } });
+      expect(packageJsonFinal).toStrictEqual({
+        devDependencies: { chalk: chalkLatest },
+      });
       expect(afterSlitted[0]).toBe(
         `:heavy_plus_sign: add chalk@${chalkLatest} as a dev dependency`,
       );
@@ -323,7 +362,9 @@ describe('BaseAddCommand', () => {
       const packageJsonFinal = filesystem.read('package.json', 'json');
 
       expect(consoleLogOutput).toMatchSnapshot();
-      expect(packageJsonFinal).toStrictEqual({ devDependencies: { chalk: chalkLatest } });
+      expect(packageJsonFinal).toStrictEqual({
+        devDependencies: { chalk: chalkLatest },
+      });
       expect(after).toMatchSnapshot();
     });
   });
@@ -339,14 +380,18 @@ describe('BaseAddCommand', () => {
       const after = await system.run('git log --name-status  --format="%s" -1');
       const afterSlitted = after
         .split('\n')
-        .map(val => val.trim())
-        .map(val => stripANSI(val))
-        .filter(val => val !== '');
+        .map((val) => val.trim())
+        .map((val) => stripANSI(val))
+        .filter((val) => val !== '');
       const packageJsonFinal = filesystem.read('package.json', 'json');
 
       expect(consoleLogOutput).toMatchSnapshot();
-      expect(packageJsonFinal).toStrictEqual({ dependencies: { chalk: chalkLatest } });
-      expect(afterSlitted[0]).toBe(`:heavy_plus_sign: add chalk@${chalkLatest} as a dependency`);
+      expect(packageJsonFinal).toStrictEqual({
+        dependencies: { chalk: chalkLatest },
+      });
+      expect(afterSlitted[0]).toBe(
+        `:heavy_plus_sign: add chalk@${chalkLatest} as a dependency`,
+      );
       expect(afterSlitted[1]).toMatch(/package\.json$/);
       expect(afterSlitted[2]).toMatch(/yarn\.lock$/);
     });
@@ -363,7 +408,9 @@ describe('BaseAddCommand', () => {
       const packageJsonFinal = filesystem.read('package.json', 'json');
 
       expect(consoleLogOutput).toMatchSnapshot();
-      expect(packageJsonFinal).toStrictEqual({ dependencies: { chalk: chalkLatest } });
+      expect(packageJsonFinal).toStrictEqual({
+        dependencies: { chalk: chalkLatest },
+      });
       expect(after).toMatchSnapshot();
     });
   });
