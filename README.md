@@ -29,7 +29,7 @@ $ npm install -g @beaussan/nbx
 $ nbx COMMAND
 running command...
 $ nbx (-v|--version|version)
-@beaussan/nbx/2.3.1 linux-x64 node-v13.8.0
+@beaussan/nbx/2.4.0 linux-x64 node-v13.10.1
 $ nbx --help [COMMAND]
 USAGE
   $ nbx COMMAND
@@ -69,7 +69,7 @@ EXAMPLES
   $ nbx add:dep chalk
 ```
 
-_See code: [src/commands/add/dep.ts](https://github.com/beaussan/nbx/blob/v2.3.1/src/commands/add/dep.ts)_
+_See code: [src/commands/add/dep.ts](https://github.com/beaussan/nbx/blob/v2.4.0/src/commands/add/dep.ts)_
 
 ## `nbx add:prettier`
 
@@ -85,7 +85,7 @@ OPTIONS
   --[no-]spinner  Enable spinner in cli output, true by default
 ```
 
-_See code: [src/commands/add/prettier.ts](https://github.com/beaussan/nbx/blob/v2.3.1/src/commands/add/prettier.ts)_
+_See code: [src/commands/add/prettier.ts](https://github.com/beaussan/nbx/blob/v2.4.0/src/commands/add/prettier.ts)_
 
 ## `nbx add:tailwind`
 
@@ -101,7 +101,7 @@ OPTIONS
   --[no-]spinner  Enable spinner in cli output, true by default
 ```
 
-_See code: [src/commands/add/tailwind.ts](https://github.com/beaussan/nbx/blob/v2.3.1/src/commands/add/tailwind.ts)_
+_See code: [src/commands/add/tailwind.ts](https://github.com/beaussan/nbx/blob/v2.4.0/src/commands/add/tailwind.ts)_
 
 ## `nbx help [COMMAND]`
 
@@ -147,7 +147,7 @@ EXAMPLE
   $ nbx wall -r "cat" -o "wall.jpg" -fg
 ```
 
-_See code: [src/commands/wall/index.ts](https://github.com/beaussan/nbx/blob/v2.3.1/src/commands/wall/index.ts)_
+_See code: [src/commands/wall/index.ts](https://github.com/beaussan/nbx/blob/v2.4.0/src/commands/wall/index.ts)_
 <!-- commandsstop -->
 
 ## Contributors ✨

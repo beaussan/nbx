@@ -1,3 +1,32 @@
+# [v2.4.1](https://github.com/beaussan/nbx/compare/v2.4.0...v2.4.1) (2020-03-26)
+
+## 🐛 Bug Fixes
+
+- [`3fed88a`](https://github.com/beaussan/nbx/commit/3fed88a)  fix various bugs 
+
+## ⬆️ Upgraded dependencies
+
+- [`5283f94`](https://github.com/beaussan/nbx/commit/5283f94)  Upgrade babel monorepo to v7.8.6 
+- [`901c772`](https://github.com/beaussan/nbx/commit/901c772)  Upgrade dependency tslib to v1.11.1 
+- [`06563be`](https://github.com/beaussan/nbx/commit/06563be)  Upgrade dependency @types/node to v10.17.17 
+- [`1efd591`](https://github.com/beaussan/nbx/commit/1efd591)  Upgrade dependency isomorphic-git to v1.1.2 
+- [`0529798`](https://github.com/beaussan/nbx/commit/0529798)  Upgrade dependency typescript to v3.8.3 
+- [`7afb04c`](https://github.com/beaussan/nbx/commit/7afb04c)  Upgrade dependency isomorphic-git to v1.1.3 
+- [`0ca60bb`](https://github.com/beaussan/nbx/commit/0ca60bb)  Upgrade dependency isomorphic-git to v1.1.4 
+- [`5caa1a3`](https://github.com/beaussan/nbx/commit/5caa1a3)  Upgrade babel monorepo to v7.8.7 
+- [`f96916c`](https://github.com/beaussan/nbx/commit/f96916c)  Upgrade dependency @types/jest to v25.1.4 
+- [`28a6dd1`](https://github.com/beaussan/nbx/commit/28a6dd1)  Upgrade dependency isomorphic-git to v1.2.0 
+- [`08de2a4`](https://github.com/beaussan/nbx/commit/08de2a4)  Upgrade dependency isomorphic-git to v1.3.0 
+- [`6115f6e`](https://github.com/beaussan/nbx/commit/6115f6e)  Bump acorn from 6.4.0 to 6.4.1 
+- [`048bf77`](https://github.com/beaussan/nbx/commit/048bf77)  Upgrade dependency isomorphic-git to v1.3.1 
+- [`6c1ac2e`](https://github.com/beaussan/nbx/commit/6c1ac2e)  Upgrade dependency @types/prompts to v2.0.5 
+- [`7749e34`](https://github.com/beaussan/nbx/commit/7749e34)  Upgrade dependency ts-node to v8.7.0 
+- [`c0f47b6`](https://github.com/beaussan/nbx/commit/c0f47b6)  Upgrade babel monorepo to v7.9.0 
+- [`0284b24`](https://github.com/beaussan/nbx/commit/0284b24)  Upgrade dependency eslint-config-prettier to v6.10.1 
+- [`b96e786`](https://github.com/beaussan/nbx/commit/b96e786)  Upgrade dependency prompts to v2.3.2 
+- [`d544386`](https://github.com/beaussan/nbx/commit/d544386)  Upgrade dependency ts-node to v8.8.1 
+- [`08ab942`](https://github.com/beaussan/nbx/commit/08ab942)  Upgrade jest monorepo to v25.2.0
+
 # [v2.4.0](https://github.com/beaussan/nbx/compare/v2.3.1...v2.4.0) (2020-02-27)
 
 ## ✨ New Features
