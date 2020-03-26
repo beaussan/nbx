@@ -41,6 +41,13 @@ jobs:
       - run:
           name: Check prettier
           command: yarn format:check
+  lint:
+    <<: *test
+    steps:
+      - setup_deps
+      - run:
+          name: Check lint
+          command: yarn lint
   cache:
     <<: *test
     steps:
