@@ -54,6 +54,7 @@ export const expectGitCommits = ({
 
   try {
     await exec([...args, ...defaultArgs]);
+    // eslint-disable-next-line unicorn/catch-error-name
   } catch (e) {
     console.error(e);
     fail('Cli errored');
