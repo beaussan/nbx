@@ -13,7 +13,9 @@ beforeEach(() => {
   consoleLogOutput = [];
   console.log = (x: any) => consoleLogOutput.push(stripANSI(x));
 
-  const tmpDirName = `${new Date().getTime()}-${Math.random() * 100}-add-nbx-test`;
+  const tmpDirName = `${new Date().getTime()}-${
+    Math.random() * 100
+  }-add-nbx-test`;
   execPath = filesystem.path('/', 'tmp', tmpDirName);
   filesystem.dir(execPath);
   process.chdir(execPath);
@@ -80,7 +82,9 @@ describe('wall command', () => {
     expect(consoleLogOutput).toMatchSnapshot();
     const files = filesystem.list('.');
     expect(files && files[0]).toBe('wall.jpg');
-    expect(filesystem.read('wall.jpg', 'json')).toStrictEqual({ name: 'hello' });
+    expect(filesystem.read('wall.jpg', 'json')).toStrictEqual({
+      name: 'hello',
+    });
   });
 
   it('should print a warning when output exists with the force flag', async () => {
