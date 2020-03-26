@@ -1,7 +1,10 @@
 const stripANSI = require('strip-ansi');
 import { filesystem, system } from 'gluegun';
 
-export type TestRun = (args: { exec: Function; defaultArgs?: string[] }) => Promise<any>;
+export type TestRun = (args: {
+  exec: Function;
+  defaultArgs?: string[];
+}) => Promise<any>;
 
 export interface TestCase {
   name: string;
@@ -25,7 +28,7 @@ export const initWithConfigAndCommit = async (packageJson = {}) => {
   filesystem.write('package.json', packageJson);
   await system.run('touch yarn.lock');
   await system.run('echo node_modules > .gitignore');
-  await system.run('git add * .nbxrc .gitignore');
+  await system.run('git add -A');
   try {
     await system.run('git config user.email "you@example.com"');
     await system.run('git config user.name "Your Name"');
@@ -46,40 +49,32 @@ export const expectGitCommits = ({
   checks?: () => Promise<any>;
   packageJson?: object;
 }): TestRun => async ({ exec, defaultArgs = [] }) => {
-  await initWithConfigAndCommit(packageJson);
   await before?.();
+  await initWithConfigAndCommit(packageJson);
 
   try {
     await exec([...args, ...defaultArgs]);
-  } catch {
+  } catch (e) {
+    console.error(e);
     fail('Cli errored');
   }
 
   const after = await system.run('git log --name-status  --format="%s"');
   const afterSlitted = after
     .split('\n')
-    .map(val => val.trim())
-    .map(val => stripANSI(val))
-    .filter(val => val !== '');
+    .map((val) => val.trim())
+    .map((val) => stripANSI(val))
+    .filter((val) => val !== '');
+
+  const initState = afterSlitted.slice(afterSlitted.indexOf('init state'));
 
   if (expectGitLog instanceof Function) {
     expect(afterSlitted).toStrictEqual([
       ...(await expectGitLog()),
-      'init state',
-      'A\t.gitignore',
-      'A\t.nbxrc',
-      'A\tpackage.json',
-      'A\tyarn.lock',
+      ...initState,
     ]);
   } else {
-    expect(afterSlitted).toStrictEqual([
-      ...expectGitLog,
-      'init state',
-      'A\t.gitignore',
-      'A\t.nbxrc',
-      'A\tpackage.json',
-      'A\tyarn.lock',
-    ]);
+    expect(afterSlitted).toStrictEqual([...expectGitLog, ...initState]);
   }
 
   await checks?.();
@@ -115,9 +110,9 @@ export const expectFailGitCommits = ({
   const after = await system.run('git log --name-status  --format="%s"');
   const afterSlitted = after
     .split('\n')
-    .map(val => val.trim())
-    .map(val => stripANSI(val))
-    .filter(val => val !== '');
+    .map((val) => val.trim())
+    .map((val) => stripANSI(val))
+    .filter((val) => val !== '');
 
   expect(afterSlitted).toStrictEqual([
     'init state',
@@ -161,7 +156,12 @@ export const expectFailCli = ({
   }
 };
 
-export const testCli = ({ tests, runCommand, name, defaultArgs }: TestCliParams) => {
+export const testCli = ({
+  tests,
+  runCommand,
+  name,
+  defaultArgs,
+}: TestCliParams) => {
   /* eslint-disable no-console,max-nested-callbacks,@typescript-eslint/ban-ts-ignore */
   let consoleLogOutput: string[];
   let execPath: string;
@@ -172,7 +172,9 @@ export const testCli = ({ tests, runCommand, name, defaultArgs }: TestCliParams)
     consoleLogOutput = [];
     console.log = (x: any) => consoleLogOutput.push(stripANSI(x));
 
-    const tmpDirName = `${new Date().getTime()}-${Math.random() * 100}-add-nbx-test`;
+    const tmpDirName = `${new Date().getTime()}-${
+      Math.random() * 100
+    }-add-nbx-test`;
     execPath = filesystem.path('/', 'tmp', tmpDirName);
     filesystem.dir(execPath);
     process.chdir(execPath);
@@ -192,7 +194,7 @@ export const testCli = ({ tests, runCommand, name, defaultArgs }: TestCliParams)
       expect(consoleLogOutput).toMatchSnapshot();
     });
 
-    tests.forEach(testCase => {
+    tests.forEach((testCase) => {
       it(`should ${testCase.name}`, async () => {
         await testCase.runner({ exec: runCommand, defaultArgs: defaultArgs });
         expect(consoleLogOutput).toMatchSnapshot();

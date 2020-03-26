@@ -14,7 +14,8 @@ testCli({
       name: 'fail if no package.json found',
       runner: expectFailCli({
         args: ['chalk'],
-        errorMessage: 'There is no package.json not found in the current folder',
+        errorMessage:
+          'There is no package.json not found in the current folder',
         before: async () => {
           filesystem.remove('package.json');
         },

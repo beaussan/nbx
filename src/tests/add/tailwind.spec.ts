@@ -12,7 +12,13 @@ import {
 jest.setTimeout(90000);
 
 const checkPackgeAndPostcssConfig = async () => {
-  const [tailwind, purgecss, autoprefixer, npmRunAll, postcss] = await Promise.all([
+  const [
+    tailwind,
+    purgecss,
+    autoprefixer,
+    npmRunAll,
+    postcss,
+  ] = await Promise.all([
     latestVersion('tailwindcss'),
     latestVersion('@fullhuman/postcss-purgecss'),
     latestVersion('autoprefixer'),
@@ -41,7 +47,8 @@ const checkPackgeAndPostcssConfig = async () => {
       'start:css': 'postcss src/css/tailwind.src.css -o src/tailwind.css -w',
       'start:js': 'react-scripts start',
       'build': 'npm-run-all build:css build:js',
-      'build:css': 'postcss src/css/tailwind.src.css -o src/tailwind.css --env production',
+      'build:css':
+        'postcss src/css/tailwind.src.css -o src/tailwind.css --env production',
       'build:js': 'react-scripts build',
       'test': 'react-scripts test',
       'eject': 'react-scripts eject',
@@ -57,7 +64,8 @@ testCli({
     {
       name: 'fail if no package.json found',
       runner: expectFailCli({
-        errorMessage: 'There is no package.json not found in the current folder',
+        errorMessage:
+          'There is no package.json not found in the current folder',
         before: async () => {
           filesystem.remove('package.json');
         },
@@ -67,6 +75,17 @@ testCli({
       name: 'error if no react is found',
       runner: expectFailGitCommits({
         errorMessage: 'This script support only for now create react apps.',
+      }),
+    },
+    {
+      name: 'error if tailwind is found',
+      runner: expectFailGitCommits({
+        packageJson: {
+          dependencies: {
+            tailwind: '2.0.0',
+          },
+        },
+        errorMessage: 'Tailwind is already installed in this project.',
       }),
     },
     {
@@ -111,7 +130,13 @@ testCli({
           },
         },
         expectGitLog: async () => {
-          const [tailwind, purgecss, autoprefixer, npmRunAll, postcss] = await Promise.all([
+          const [
+            tailwind,
+            purgecss,
+            autoprefixer,
+            npmRunAll,
+            postcss,
+          ] = await Promise.all([
             latestVersion('tailwindcss'),
             latestVersion('@fullhuman/postcss-purgecss'),
             latestVersion('autoprefixer'),

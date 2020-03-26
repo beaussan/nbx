@@ -2,6 +2,8 @@
 
 exports[`nbx add:tailwind should error if no react is found 1`] = `Array []`;
 
+exports[`nbx add:tailwind should error if tailwind is found 1`] = `Array []`;
+
 exports[`nbx add:tailwind should fail if no package.json found 1`] = `Array []`;
 
 exports[`nbx add:tailwind should print help correctly 1`] = `

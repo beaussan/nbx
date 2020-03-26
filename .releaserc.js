@@ -1,7 +1,9 @@
 const { readFileSync } = require('fs');
 const path = require('path');
 
-const releaseTemplate = readFileSync(path.join('.', '.github', 'release-template.hbs'));
+const releaseTemplate = readFileSync(
+  path.join('.', '.github', 'release-template.hbs'),
+);
 
 module.exports = {
   plugins: [
@@ -60,7 +62,8 @@ module.exports = {
       '@semantic-release/git',
       {
         assets: ['CHANGELOG.md', 'package.json', 'README.md'],
-        message: ':bookmark: ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+        message:
+          ':bookmark: ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
     ],
   ],
