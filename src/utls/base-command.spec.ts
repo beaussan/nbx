@@ -100,11 +100,17 @@ describe('BaseCommand', () => {
     describe('spinner', () => {
       it('should be enable by default', async () => {
         await SampleCommand.run(['-v']);
-        expect(consoleLogOutput).toContainEqual({ verbose: true, spinner: true });
+        expect(consoleLogOutput).toContainEqual({
+          verbose: true,
+          spinner: true,
+        });
       });
       it('can be disabled', async () => {
         await SampleCommand.run(['-v', '--no-spinner']);
-        expect(consoleLogOutput).toContainEqual({ verbose: true, spinner: false });
+        expect(consoleLogOutput).toContainEqual({
+          verbose: true,
+          spinner: false,
+        });
       });
     });
     describe('help', () => {
@@ -181,7 +187,7 @@ describe('BaseCommand', () => {
           };
 
           async run() {
-            await this.runWithSpinner('Should be good', async spinner => {
+            await this.runWithSpinner('Should be good', async (spinner) => {
               spinner.succeed('Yay, done.');
               return '';
             });
@@ -239,10 +245,13 @@ describe('BaseCommand', () => {
           };
 
           async run() {
-            const ret = await this.runWithSpinner('Should be good', async spinner => {
-              spinner.succeed('Yay, done.');
-              return 'DONE';
-            });
+            const ret = await this.runWithSpinner(
+              'Should be good',
+              async (spinner) => {
+                spinner.succeed('Yay, done.');
+                return 'DONE';
+              },
+            );
             expect(ret).toEqual('DONE');
           }
         }

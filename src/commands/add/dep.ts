@@ -14,10 +14,16 @@ export default class Dep extends BaseAddCommand {
 
   static flags = {
     ...BaseCommand.flags,
-    dev: flags.boolean({ default: false, char: 'D', description: 'install as a dev dependency' }),
+    dev: flags.boolean({
+      default: false,
+      char: 'D',
+      description: 'install as a dev dependency',
+    }),
   };
 
-  static args = [{ name: 'dep', description: 'The dependency to install', required: true }];
+  static args = [
+    { name: 'dep', description: 'The dependency to install', required: true },
+  ];
 
   async run() {
     if (!this.hasDirPackageJson()) {
@@ -28,7 +34,10 @@ export default class Dep extends BaseAddCommand {
       flags: { dev },
     } = this.parse(Dep);
 
-    if ((dev && this.hasDevDependencyInPackageJson(dep)) || this.hasDependencyInPackageJson(dep)) {
+    if (
+      (dev && this.hasDevDependencyInPackageJson(dep)) ||
+      this.hasDependencyInPackageJson(dep)
+    ) {
       if (this.hasDevDependencyInPackageJson(dep)) {
         this.error(`${dep} is already installed in this project.`);
       }
