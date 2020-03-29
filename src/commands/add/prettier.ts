@@ -3,12 +3,18 @@ import { BaseCommand } from '../../utls/base-command';
 import { system, filesystem } from 'gluegun';
 import * as prompts from 'prompts';
 import { BaseAddCommand } from '../../utls/base-add-command';
+import { flags } from '@oclif/command';
 
 export default class Prettier extends BaseAddCommand {
   static description = 'add prettier to project and format it';
 
   static flags = {
     ...BaseCommand.flags,
+    onlyLint: flags.boolean({
+      default: false,
+      char: 'l',
+      description: 'only install for linters',
+    }),
   };
 
   async run() {
@@ -16,18 +22,8 @@ export default class Prettier extends BaseAddCommand {
       this.error('There is no package.json not found in the current folder');
     }
 
-    if (this.hasDevDependencyInPackageJson('prettier')) {
-      this.error('Prettier is already installed in this project.');
-    }
-
-    const { mask, shouldCommit } = await prompts(
+    const { shouldCommit } = await prompts(
       [
-        {
-          type: 'text',
-          message: 'On what files it should run prettier',
-          name: 'mask',
-          initial: '**/*.{js,vue,json,ts,tsx,md,yml,html}',
-        },
         {
           type: 'confirm',
           message: 'Do you want gitmoji commits with the prettier setup ?',
@@ -39,8 +35,33 @@ export default class Prettier extends BaseAddCommand {
     );
 
     if (shouldCommit) {
-      this.initGit();
+      await this.initGit();
     }
+    const {
+      flags: { onlyLint },
+    } = this.parse(Prettier);
+
+    if (onlyLint) {
+      await this.handleMaybeEslint(shouldCommit);
+      await this.handleMaybeTslint(shouldCommit);
+      return;
+    }
+
+    if (this.hasDevDependencyInPackageJson('prettier')) {
+      this.error('Prettier is already installed in this project.');
+    }
+
+    const { mask } = await prompts(
+      [
+        {
+          type: 'text',
+          message: 'On what files it should run prettier',
+          name: 'mask',
+          initial: '**/*.{js,vue,json,ts,tsx,md,yml,html}',
+        },
+      ],
+      { onCancel: () => this.error('User canceled prompt.') },
+    );
 
     await this.addDevDependency('prettier', shouldCommit);
     await this.addDevDependency('husky', shouldCommit);
