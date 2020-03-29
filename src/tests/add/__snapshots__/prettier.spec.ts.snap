@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nbx add:tailwind should fail if no package.json found 1`] = `Array []`;
+exports[`nbx add:prettier should fail if no package.json found 1`] = `Array []`;
 
-exports[`nbx add:tailwind should fail if prettier is found in package.json 1`] = `Array []`;
+exports[`nbx add:prettier should fail if prettier is found in package.json 1`] = `Array []`;
 
-exports[`nbx add:tailwind should print help correctly 1`] = `
+exports[`nbx add:prettier should print help correctly 1`] = `
 Array [
   "add prettier to project and format it
 ",
@@ -13,13 +13,14 @@ Array [
 
 OPTIONS
   -h, --help      show CLI help
+  -l, --onlyLint  only install for linters
   -v, --verbose   Verbose output
   --[no-]spinner  Enable spinner in cli output, true by default",
   "",
 ]
 `;
 
-exports[`nbx add:tailwind should work with commits 1`] = `
+exports[`nbx add:prettier should work with commits 1`] = `
 "<html>
   <body>
     <a>testokiii</a>
@@ -28,7 +29,7 @@ exports[`nbx add:tailwind should work with commits 1`] = `
 "
 `;
 
-exports[`nbx add:tailwind should work with commits 2`] = `
+exports[`nbx add:prettier should work with commits 2`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -45,7 +46,7 @@ Array [
 ]
 `;
 
-exports[`nbx add:tailwind should work with eslint and commits and with an empty .eslintrc 1`] = `
+exports[`nbx add:prettier should work with eslint and commits and with an empty .eslintrc 1`] = `
 "<html>
   <body>
     <a>testokiii</a>
@@ -54,39 +55,7 @@ exports[`nbx add:tailwind should work with eslint and commits and with an empty 
 "
 `;
 
-exports[`nbx add:tailwind should work with eslint and commits and with an empty .eslintrc 2`] = `
-Array [
-  "Adding prettier as a dev dependency",
-  "The step was done without any error.",
-  "Adding husky as a dev dependency",
-  "The step was done without any error.",
-  "Adding pretty-quick as a dev dependency",
-  "The step was done without any error.",
-  "Adding package.json scripts",
-  "The step was done without any error.",
-  "Adding .prettierrc config file",
-  "The step was done without any error.",
-  "Updating code to match prettier style",
-  "The step was done without any error.",
-  "Adding eslint-config-prettier as a dev dependency",
-  "The step was done without any error.",
-  "Adding eslint-plugin-prettier as a dev dependency",
-  "The step was done without any error.",
-  "Updating .eslintrc",
-  "The step was done without any error.",
-]
-`;
-
-exports[`nbx add:tailwind should work with eslint and commits and with extends as array .eslintrc 1`] = `
-"<html>
-  <body>
-    <a>testokiii</a>
-  </body>
-</html>
-"
-`;
-
-exports[`nbx add:tailwind should work with eslint and commits and with extends as array .eslintrc 2`] = `
+exports[`nbx add:prettier should work with eslint and commits and with an empty .eslintrc 2`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -109,7 +78,18 @@ Array [
 ]
 `;
 
-exports[`nbx add:tailwind should work with eslint and commits and with extends as array .eslintrc.json 1`] = `
+exports[`nbx add:prettier should work with eslint and commits and with an empty .eslintrc and only lint 1`] = `
+Array [
+  "Adding eslint-config-prettier as a dev dependency",
+  "The step was done without any error.",
+  "Adding eslint-plugin-prettier as a dev dependency",
+  "The step was done without any error.",
+  "Updating .eslintrc",
+  "The step was done without any error.",
+]
+`;
+
+exports[`nbx add:prettier should work with eslint and commits and with extends as array .eslintrc 1`] = `
 "<html>
   <body>
     <a>testokiii</a>
@@ -118,7 +98,39 @@ exports[`nbx add:tailwind should work with eslint and commits and with extends a
 "
 `;
 
-exports[`nbx add:tailwind should work with eslint and commits and with extends as array .eslintrc.json 2`] = `
+exports[`nbx add:prettier should work with eslint and commits and with extends as array .eslintrc 2`] = `
+Array [
+  "Adding prettier as a dev dependency",
+  "The step was done without any error.",
+  "Adding husky as a dev dependency",
+  "The step was done without any error.",
+  "Adding pretty-quick as a dev dependency",
+  "The step was done without any error.",
+  "Adding package.json scripts",
+  "The step was done without any error.",
+  "Adding .prettierrc config file",
+  "The step was done without any error.",
+  "Updating code to match prettier style",
+  "The step was done without any error.",
+  "Adding eslint-config-prettier as a dev dependency",
+  "The step was done without any error.",
+  "Adding eslint-plugin-prettier as a dev dependency",
+  "The step was done without any error.",
+  "Updating .eslintrc",
+  "The step was done without any error.",
+]
+`;
+
+exports[`nbx add:prettier should work with eslint and commits and with extends as array .eslintrc.json 1`] = `
+"<html>
+  <body>
+    <a>testokiii</a>
+  </body>
+</html>
+"
+`;
+
+exports[`nbx add:prettier should work with eslint and commits and with extends as array .eslintrc.json 2`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -141,7 +153,7 @@ Array [
 ]
 `;
 
-exports[`nbx add:tailwind should work with eslint and commits and with extends as string .eslintrc 1`] = `
+exports[`nbx add:prettier should work with eslint and commits and with extends as string .eslintrc 1`] = `
 "<html>
   <body>
     <a>testokiii</a>
@@ -150,7 +162,7 @@ exports[`nbx add:tailwind should work with eslint and commits and with extends a
 "
 `;
 
-exports[`nbx add:tailwind should work with eslint and commits and with extends as string .eslintrc 2`] = `
+exports[`nbx add:prettier should work with eslint and commits and with extends as string .eslintrc 2`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -173,7 +185,7 @@ Array [
 ]
 `;
 
-exports[`nbx add:tailwind should work with tslint and commits and with an empty config 1`] = `
+exports[`nbx add:prettier should work with tslint and commits and with an empty config 1`] = `
 "<html>
   <body>
     <a>testokiii</a>
@@ -182,7 +194,16 @@ exports[`nbx add:tailwind should work with tslint and commits and with an empty 
 "
 `;
 
-exports[`nbx add:tailwind should work with tslint and commits and with an empty config 2`] = `
+exports[`nbx add:prettier should work with tslint and commits and with an empty config 2`] = `
+"<html>
+  <body>
+    <a>testokiii</a>
+  </body>
+</html>
+"
+`;
+
+exports[`nbx add:prettier should work with tslint and commits and with an empty config 3`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -205,7 +226,7 @@ Array [
 ]
 `;
 
-exports[`nbx add:tailwind should work with tslint and commits and with an existing extends as array 1`] = `
+exports[`nbx add:prettier should work with tslint and commits and with an existing extends as array 1`] = `
 "<html>
   <body>
     <a>testokiii</a>
@@ -214,7 +235,16 @@ exports[`nbx add:tailwind should work with tslint and commits and with an existi
 "
 `;
 
-exports[`nbx add:tailwind should work with tslint and commits and with an existing extends as array 2`] = `
+exports[`nbx add:prettier should work with tslint and commits and with an existing extends as array 2`] = `
+"<html>
+  <body>
+    <a>testokiii</a>
+  </body>
+</html>
+"
+`;
+
+exports[`nbx add:prettier should work with tslint and commits and with an existing extends as array 3`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -237,7 +267,7 @@ Array [
 ]
 `;
 
-exports[`nbx add:tailwind should work with tslint and commits and with an existing extends as string 1`] = `
+exports[`nbx add:prettier should work with tslint and commits and with an existing extends as string 1`] = `
 "<html>
   <body>
     <a>testokiii</a>
@@ -246,7 +276,16 @@ exports[`nbx add:tailwind should work with tslint and commits and with an existi
 "
 `;
 
-exports[`nbx add:tailwind should work with tslint and commits and with an existing extends as string 2`] = `
+exports[`nbx add:prettier should work with tslint and commits and with an existing extends as string 2`] = `
+"<html>
+  <body>
+    <a>testokiii</a>
+  </body>
+</html>
+"
+`;
+
+exports[`nbx add:prettier should work with tslint and commits and with an existing extends as string 3`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -269,7 +308,7 @@ Array [
 ]
 `;
 
-exports[`nbx add:tailwind should work with tslint and commits and with an existing rules config 1`] = `
+exports[`nbx add:prettier should work with tslint and commits and with an existing rules config 1`] = `
 "<html>
   <body>
     <a>testokiii</a>
@@ -278,7 +317,16 @@ exports[`nbx add:tailwind should work with tslint and commits and with an existi
 "
 `;
 
-exports[`nbx add:tailwind should work with tslint and commits and with an existing rules config 2`] = `
+exports[`nbx add:prettier should work with tslint and commits and with an existing rules config 2`] = `
+"<html>
+  <body>
+    <a>testokiii</a>
+  </body>
+</html>
+"
+`;
+
+exports[`nbx add:prettier should work with tslint and commits and with an existing rules config 3`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -301,7 +349,7 @@ Array [
 ]
 `;
 
-exports[`nbx add:tailwind should work without commits 1`] = `
+exports[`nbx add:prettier should work without commits 1`] = `
 "<html>
   <body>
     <a>testokiii</a>
@@ -310,7 +358,7 @@ exports[`nbx add:tailwind should work without commits 1`] = `
 "
 `;
 
-exports[`nbx add:tailwind should work without commits 2`] = `
+exports[`nbx add:prettier should work without commits 2`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",

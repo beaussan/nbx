@@ -50,17 +50,26 @@ export const expectEslintWithParams = ({
   eslintName,
   eslintJson,
   expectedEslint,
+  onlyLint = false,
+  argLint = '',
 }: {
   eslintName: string;
   eslintJson: object | string;
   expectedEslint: object;
+  onlyLint?: boolean;
+  argLint?: string;
 }): TestRun =>
   expectGitCommits({
     before: async () => {
-      await beforeCreateHtml();
       filesystem.write(eslintName, eslintJson);
-      prompts.inject(['**/*.{js,vue,json,ts,tsx,md,yml,html}', true, true]);
+      if (onlyLint) {
+        prompts.inject([true, true]);
+      } else {
+        await beforeCreateHtml();
+        prompts.inject([true, '**/*.{js,vue,json,ts,tsx,md,yml,html}', true]);
+      }
     },
+    args: [...(onlyLint ? [argLint] : [])],
     checks: async () => {
       const [
         latestEslintPluginPrettier,
@@ -69,10 +78,20 @@ export const expectEslintWithParams = ({
         latestVersion('eslint-plugin-prettier'),
         latestVersion('eslint-config-prettier'),
       ]);
-      await checkFiles({
-        'eslint-plugin-prettier': latestEslintPluginPrettier,
-        'eslint-config-prettier': latestEslintConfigPrettier,
-      });
+      if (onlyLint) {
+        const packageJson = filesystem.read('package.json', 'json');
+        expect(packageJson).toStrictEqual({
+          devDependencies: {
+            'eslint-plugin-prettier': latestEslintPluginPrettier,
+            'eslint-config-prettier': latestEslintConfigPrettier,
+          },
+        });
+      } else {
+        await checkFiles({
+          'eslint-plugin-prettier': latestEslintPluginPrettier,
+          'eslint-config-prettier': latestEslintConfigPrettier,
+        });
+      }
       const eslintOutput = filesystem.read(eslintName, 'json');
       expect(eslintOutput).toStrictEqual(expectedEslint);
     },
@@ -99,22 +118,26 @@ export const expectEslintWithParams = ({
         `:heavy_plus_sign: add eslint-config-prettier@${latestEslintConfigPrettier} as a dev dependency`,
         'M\tpackage.json',
         'M\tyarn.lock',
-        ':art: apply prettier style to project',
-        'M\tpackage.json',
-        'M\ttest.html',
-        ':wrench: add prettierrc config file',
-        'A\t.prettierrc',
-        ':wrench: add script and husky to package.json',
-        'M\tpackage.json',
-        `:heavy_plus_sign: add pretty-quick@${latestPrettyQuick} as a dev dependency`,
-        'M\tpackage.json',
-        'M\tyarn.lock',
-        `:heavy_plus_sign: add husky@${latestHusky} as a dev dependency`,
-        'M\tpackage.json',
-        'M\tyarn.lock',
-        `:heavy_plus_sign: add prettier@${latestPrettier} as a dev dependency`,
-        'M\tpackage.json',
-        'M\tyarn.lock',
+        ...(onlyLint
+          ? []
+          : [
+              ':art: apply prettier style to project',
+              'M\tpackage.json',
+              'M\ttest.html',
+              ':wrench: add prettierrc config file',
+              'A\t.prettierrc',
+              ':wrench: add script and husky to package.json',
+              'M\tpackage.json',
+              `:heavy_plus_sign: add pretty-quick@${latestPrettyQuick} as a dev dependency`,
+              'M\tpackage.json',
+              'M\tyarn.lock',
+              `:heavy_plus_sign: add husky@${latestHusky} as a dev dependency`,
+              'M\tpackage.json',
+              'M\tyarn.lock',
+              `:heavy_plus_sign: add prettier@${latestPrettier} as a dev dependency`,
+              'M\tpackage.json',
+              'M\tyarn.lock',
+            ]),
       ];
     },
   });
@@ -122,16 +145,25 @@ export const expectEslintWithParams = ({
 export const expectTslintWithParams = ({
   tslintJson,
   expectedTslint,
+  onlyLint = false,
+  argLint = '',
 }: {
   tslintJson: object | string;
   expectedTslint: object;
+  onlyLint?: boolean;
+  argLint?: string;
 }): TestRun =>
   expectGitCommits({
     before: async () => {
-      await beforeCreateHtml();
       filesystem.write('tslint.json', tslintJson);
-      prompts.inject(['**/*.{js,vue,json,ts,tsx,md,yml,html}', true, true]);
+      if (onlyLint) {
+        prompts.inject([true, true]);
+      } else {
+        await beforeCreateHtml();
+        prompts.inject([true, '**/*.{js,vue,json,ts,tsx,md,yml,html}', true]);
+      }
     },
+    args: [...(onlyLint ? [argLint] : [])],
     checks: async () => {
       const [
         latestTslintConfigPrettier,
@@ -140,10 +172,21 @@ export const expectTslintWithParams = ({
         latestVersion('tslint-config-prettier'),
         latestVersion('tslint-plugin-prettier'),
       ]);
-      await checkFiles({
-        'tslint-config-prettier': latestTslintConfigPrettier,
-        'tslint-plugin-prettier': latestTslintPluginPrettier,
-      });
+      if (onlyLint) {
+        const packageJson = filesystem.read('package.json', 'json');
+        expect(packageJson).toStrictEqual({
+          devDependencies: {
+            'tslint-config-prettier': latestTslintConfigPrettier,
+            'tslint-plugin-prettier': latestTslintPluginPrettier,
+          },
+        });
+      } else {
+        await checkFiles({
+          'tslint-config-prettier': latestTslintConfigPrettier,
+          'tslint-plugin-prettier': latestTslintPluginPrettier,
+        });
+      }
+
       const tslintOutput = filesystem.read('tslint.json', 'json');
       expect(tslintOutput).toStrictEqual(expectedTslint);
     },
@@ -170,30 +213,34 @@ export const expectTslintWithParams = ({
         `:heavy_plus_sign: add tslint-config-prettier@${latestTslintPluginPrettier} as a dev dependency`,
         'M\tpackage.json',
         'M\tyarn.lock',
-        ':art: apply prettier style to project',
-        'M\tpackage.json',
-        'M\ttest.html',
-        'M\ttslint.json',
-        ':wrench: add prettierrc config file',
-        'A\t.prettierrc',
-        ':wrench: add script and husky to package.json',
-        'M\tpackage.json',
-        `:heavy_plus_sign: add pretty-quick@${latestPrettyQuick} as a dev dependency`,
-        'M\tpackage.json',
-        'M\tyarn.lock',
-        `:heavy_plus_sign: add husky@${latestHusky} as a dev dependency`,
-        'M\tpackage.json',
-        'M\tyarn.lock',
-        `:heavy_plus_sign: add prettier@${latestPrettier} as a dev dependency`,
-        'M\tpackage.json',
-        'M\tyarn.lock',
+        ...(onlyLint
+          ? []
+          : [
+              ':art: apply prettier style to project',
+              'M\tpackage.json',
+              'M\ttest.html',
+              'M\ttslint.json',
+              ':wrench: add prettierrc config file',
+              'A\t.prettierrc',
+              ':wrench: add script and husky to package.json',
+              'M\tpackage.json',
+              `:heavy_plus_sign: add pretty-quick@${latestPrettyQuick} as a dev dependency`,
+              'M\tpackage.json',
+              'M\tyarn.lock',
+              `:heavy_plus_sign: add husky@${latestHusky} as a dev dependency`,
+              'M\tpackage.json',
+              'M\tyarn.lock',
+              `:heavy_plus_sign: add prettier@${latestPrettier} as a dev dependency`,
+              'M\tpackage.json',
+              'M\tyarn.lock',
+            ]),
       ];
     },
   });
 
 testCli({
   runCommand: (args: string[]) => Prettier.run(args),
-  name: 'nbx add:tailwind',
+  name: 'nbx add:prettier',
   defaultArgs: ['--no-spinner'],
   tests: [
     {
@@ -203,6 +250,7 @@ testCli({
           'There is no package.json not found in the current folder',
         before: async () => {
           filesystem.remove('package.json');
+          prompts.inject([true, '**/*.{js,vue,json,ts,tsx,md,yml,html}']);
         },
       }),
     },
@@ -215,6 +263,9 @@ testCli({
             prettier: '2.0.0',
           },
         },
+        before: async () => {
+          prompts.inject([true, '**/*.{js,vue,json,ts,tsx,md,yml,html}']);
+        },
       }),
     },
     {
@@ -224,7 +275,7 @@ testCli({
         checks: checkFiles,
         before: async () => {
           await beforeCreateHtml();
-          prompts.inject(['**/*.{js,vue,json,ts,tsx,md,yml,html}', false]);
+          prompts.inject([false, '**/*.{js,vue,json,ts,tsx,md,yml,html}']);
         },
       }),
     },
@@ -263,7 +314,7 @@ testCli({
         checks: checkFiles,
         before: async () => {
           await beforeCreateHtml();
-          prompts.inject(['**/*.{js,vue,json,ts,tsx,md,yml,html}', true]);
+          prompts.inject([true, '**/*.{js,vue,json,ts,tsx,md,yml,html}']);
         },
       }),
     },
@@ -271,6 +322,35 @@ testCli({
       name: 'work with tslint and commits and with an empty config',
       runner: expectTslintWithParams({
         tslintJson: {},
+        expectedTslint: {
+          extends: ['tslint-plugin-prettier', 'tslint-config-prettier'],
+          rules: {
+            prettier: true,
+          },
+        },
+      }),
+    },
+    {
+      name: 'work with tslint and commits and with only lint with l flag',
+      runner: expectTslintWithParams({
+        tslintJson: {},
+        onlyLint: true,
+        argLint: '-l',
+        expectedTslint: {
+          extends: ['tslint-plugin-prettier', 'tslint-config-prettier'],
+          rules: {
+            prettier: true,
+          },
+        },
+      }),
+    },
+    {
+      name:
+        'work with tslint and commits and with only lint with onlyLint flag',
+      runner: expectTslintWithParams({
+        tslintJson: {},
+        onlyLint: true,
+        argLint: '--onlyLint',
         expectedTslint: {
           extends: ['tslint-plugin-prettier', 'tslint-config-prettier'],
           rules: {
@@ -347,6 +427,19 @@ testCli({
       runner: expectEslintWithParams({
         eslintName: '.eslintrc',
         eslintJson: {},
+        expectedEslint: {
+          extends: ['plugin:prettier/recommended'],
+        },
+      }),
+    },
+    {
+      name:
+        'work with eslint and commits and with an empty .eslintrc and only lint',
+      runner: expectEslintWithParams({
+        eslintName: '.eslintrc',
+        eslintJson: {},
+        onlyLint: true,
+        argLint: '-l',
         expectedEslint: {
           extends: ['plugin:prettier/recommended'],
         },
