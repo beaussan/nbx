@@ -10,7 +10,7 @@ import {
   TestRun,
 } from '../test-helpers.spec';
 
-jest.setTimeout(90000);
+jest.setTimeout(6000);
 
 const beforeCreateHtml = async () => {
   filesystem.write('test.html', '<html><body><a>testokiii</a></body></html>');
@@ -62,10 +62,10 @@ export const expectEslintWithParams = ({
   expectGitCommits({
     before: async () => {
       filesystem.write(eslintName, eslintJson);
+      await beforeCreateHtml();
       if (onlyLint) {
         prompts.inject([true, true]);
       } else {
-        await beforeCreateHtml();
         prompts.inject([true, '**/*.{js,vue,json,ts,tsx,md,yml,html}', true]);
       }
     },
@@ -156,10 +156,10 @@ export const expectTslintWithParams = ({
   expectGitCommits({
     before: async () => {
       filesystem.write('tslint.json', tslintJson);
+      await beforeCreateHtml();
       if (onlyLint) {
         prompts.inject([true, true]);
       } else {
-        await beforeCreateHtml();
         prompts.inject([true, '**/*.{js,vue,json,ts,tsx,md,yml,html}', true]);
       }
     },
@@ -250,7 +250,6 @@ testCli({
           'There is no package.json not found in the current folder',
         before: async () => {
           filesystem.remove('package.json');
-          prompts.inject([true, '**/*.{js,vue,json,ts,tsx,md,yml,html}']);
         },
       }),
     },
@@ -264,7 +263,7 @@ testCli({
           },
         },
         before: async () => {
-          prompts.inject([true, '**/*.{js,vue,json,ts,tsx,md,yml,html}']);
+          prompts.inject([true]);
         },
       }),
     },
