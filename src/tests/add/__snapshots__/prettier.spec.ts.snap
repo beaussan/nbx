@@ -195,15 +195,6 @@ exports[`nbx add:prettier should work with tslint and commits and with an empty 
 `;
 
 exports[`nbx add:prettier should work with tslint and commits and with an empty config 2`] = `
-"<html>
-  <body>
-    <a>testokiii</a>
-  </body>
-</html>
-"
-`;
-
-exports[`nbx add:prettier should work with tslint and commits and with an empty config 3`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -236,15 +227,6 @@ exports[`nbx add:prettier should work with tslint and commits and with an existi
 `;
 
 exports[`nbx add:prettier should work with tslint and commits and with an existing extends as array 2`] = `
-"<html>
-  <body>
-    <a>testokiii</a>
-  </body>
-</html>
-"
-`;
-
-exports[`nbx add:prettier should work with tslint and commits and with an existing extends as array 3`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -277,15 +259,6 @@ exports[`nbx add:prettier should work with tslint and commits and with an existi
 `;
 
 exports[`nbx add:prettier should work with tslint and commits and with an existing extends as string 2`] = `
-"<html>
-  <body>
-    <a>testokiii</a>
-  </body>
-</html>
-"
-`;
-
-exports[`nbx add:prettier should work with tslint and commits and with an existing extends as string 3`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -318,15 +291,6 @@ exports[`nbx add:prettier should work with tslint and commits and with an existi
 `;
 
 exports[`nbx add:prettier should work with tslint and commits and with an existing rules config 2`] = `
-"<html>
-  <body>
-    <a>testokiii</a>
-  </body>
-</html>
-"
-`;
-
-exports[`nbx add:prettier should work with tslint and commits and with an existing rules config 3`] = `
 Array [
   "Adding prettier as a dev dependency",
   "The step was done without any error.",
@@ -340,6 +304,28 @@ Array [
   "The step was done without any error.",
   "Updating code to match prettier style",
   "The step was done without any error.",
+  "Adding tslint-config-prettier as a dev dependency",
+  "The step was done without any error.",
+  "Adding tslint-plugin-prettier as a dev dependency",
+  "The step was done without any error.",
+  "Updating tslint.json",
+  "The step was done without any error.",
+]
+`;
+
+exports[`nbx add:prettier should work with tslint and commits and with only lint with l flag 1`] = `
+Array [
+  "Adding tslint-config-prettier as a dev dependency",
+  "The step was done without any error.",
+  "Adding tslint-plugin-prettier as a dev dependency",
+  "The step was done without any error.",
+  "Updating tslint.json",
+  "The step was done without any error.",
+]
+`;
+
+exports[`nbx add:prettier should work with tslint and commits and with only lint with onlyLint flag 1`] = `
+Array [
   "Adding tslint-config-prettier as a dev dependency",
   "The step was done without any error.",
   "Adding tslint-plugin-prettier as a dev dependency",
