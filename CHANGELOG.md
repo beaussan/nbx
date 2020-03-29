@@ -1,3 +1,15 @@
+# [v2.5.0](https://github.com/beaussan/nbx/compare/v2.4.1...v2.5.0) (2020-03-29)
+
+## ✨ New Features
+
+- [`2d8acf0`](https://github.com/beaussan/nbx/commit/2d8acf0)  add onlyLint flag to prettier 
+
+## ⬆️ Upgraded dependencies
+
+- [`81a0aaa`](https://github.com/beaussan/nbx/commit/81a0aaa)  Upgrade jest monorepo 
+- [`31c624f`](https://github.com/beaussan/nbx/commit/31c624f)  Upgrade jest monorepo to v25.2.3 
+- [`53e4f80`](https://github.com/beaussan/nbx/commit/53e4f80)  Upgrade dependency @semantic-release/changelog to v5.0.1
+
 # [v2.4.1](https://github.com/beaussan/nbx/compare/v2.4.0...v2.4.1) (2020-03-26)
 
 ## 🐛 Bug Fixes
