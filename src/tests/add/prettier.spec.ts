@@ -10,7 +10,7 @@ import {
   TestRun,
 } from '../test-helpers.spec';
 
-jest.setTimeout(6000);
+jest.setTimeout(90000);
 
 const beforeCreateHtml = async () => {
   filesystem.write('test.html', '<html><body><a>testokiii</a></body></html>');
