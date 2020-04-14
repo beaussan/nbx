@@ -9,7 +9,7 @@
   "bugs": "https://github.com/beaussan/nbx/issues",
   "dependencies": {
     "@oclif/command": "1.5.19",
-    "@oclif/config": "1.14.0",
+    "@oclif/config": "1.15.1",
     "@oclif/errors": "1.2.2",
     "@oclif/plugin-help": "2.2.3",
     "@oclif/plugin-not-found": "1.2.3",
