@@ -21,7 +21,7 @@
     "isomorphic-git": "1.4.0",
     "latest-version": "5.1.0",
     "prompts": "2.3.2",
-    "tslib": "1.13.0"
+    "tslib": "2.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
