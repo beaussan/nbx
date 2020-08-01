@@ -16,7 +16,7 @@
     "@oclif/plugin-warn-if-update-available": "1.7.0",
     "axios": "0.19.2",
     "colors": "1.4.0",
-    "cosmiconfig": "6.0.0",
+    "cosmiconfig": "7.0.0",
     "gluegun": "4.3.1",
     "isomorphic-git": "1.7.0",
     "latest-version": "5.1.0",
