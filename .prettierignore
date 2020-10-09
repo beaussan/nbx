@@ -25,3 +25,8 @@ yarn-error.log*
 
 CHANGELOG.md
 README.md
+
+
+lib/
+
+coverage/
