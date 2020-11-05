@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`nbx add:tailwind should error if craco is found 1`] = `Array []`;
+
 exports[`nbx add:tailwind should error if no react is found 1`] = `Array []`;
 
 exports[`nbx add:tailwind should error if tailwind is found 1`] = `Array []`;
@@ -22,85 +24,69 @@ OPTIONS
 `;
 
 exports[`nbx add:tailwind should work on a react application with commits 1`] = `
-"const purgecss = require('@fullhuman/postcss-purgecss')({
-  content: ['./src/**/*.jsx', './src/**/*.js', './src/index.js', './public/index.html'],
-  css: ['./src/tailwind.css'],
-  // Include any special characters you're using in this regular expression
-  defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
-});
-module.exports = {
-  plugins: [
-    require('tailwindcss')('./tailwind.config.js'),
-    require('autoprefixer'),
-    ...(process.env.NODE_ENV === 'production' ? [purgecss] : []),
-  ],
-};
+"@tailwind base;
+
+/* Write your own custom base styles here */
+
+/* Start purging... */
+@tailwind components;
+/* Stop purging. */
+
+/* Start purging... */
+@tailwind utilities;
+/* Stop purging. */
+
+/* Your own custom utilities */
 "
 `;
 
 exports[`nbx add:tailwind should work on a react application with commits 2`] = `
 Array [
-  "Adding @fullhuman/postcss-purgecss as a dev dependency",
-  "The step was done without any error.",
-  "Adding autoprefixer as a dev dependency",
-  "The step was done without any error.",
-  "Adding npm-run-all as a dev dependency",
-  "The step was done without any error.",
-  "Adding postcss-cli as a dev dependency",
+  "Adding @craco/craco as a dev dependency",
   "The step was done without any error.",
   "Adding tailwindcss as a dependency",
   "The step was done without any error.",
   "Generating tailwind initial config",
   "The step was done without any error.",
-  "Generating postcss",
+  "Generating craco postcssconfig",
   "The step was done without any error.",
   "Generating tailwind full css",
   "The step was done without any error.",
   "Adding package.json scripts",
-  "The step was done without any error.",
-  "Adding full tailwind css to .gitignore",
   "The step was done without any error.",
 ]
 `;
 
 exports[`nbx add:tailwind should work on a react application without commits 1`] = `
-"const purgecss = require('@fullhuman/postcss-purgecss')({
-  content: ['./src/**/*.jsx', './src/**/*.js', './src/index.js', './public/index.html'],
-  css: ['./src/tailwind.css'],
-  // Include any special characters you're using in this regular expression
-  defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
-});
-module.exports = {
-  plugins: [
-    require('tailwindcss')('./tailwind.config.js'),
-    require('autoprefixer'),
-    ...(process.env.NODE_ENV === 'production' ? [purgecss] : []),
-  ],
-};
+"@tailwind base;
+
+/* Write your own custom base styles here */
+
+/* Start purging... */
+@tailwind components;
+/* Stop purging. */
+
+/* Start purging... */
+@tailwind utilities;
+/* Stop purging. */
+
+/* Your own custom utilities */
 "
 `;
 
 exports[`nbx add:tailwind should work on a react application without commits 2`] = `
 Array [
-  "Adding @fullhuman/postcss-purgecss as a dev dependency",
-  "The step was done without any error.",
-  "Adding autoprefixer as a dev dependency",
-  "The step was done without any error.",
-  "Adding npm-run-all as a dev dependency",
-  "The step was done without any error.",
-  "Adding postcss-cli as a dev dependency",
+  "Adding @craco/craco as a dev dependency",
   "The step was done without any error.",
   "Adding tailwindcss as a dependency",
   "The step was done without any error.",
   "Generating tailwind initial config",
   "The step was done without any error.",
-  "Generating postcss",
+  "Generating craco postcssconfig",
   "The step was done without any error.",
   "Generating tailwind full css",
   "The step was done without any error.",
   "Adding package.json scripts",
-  "The step was done without any error.",
-  "Adding full tailwind css to .gitignore",
   "The step was done without any error.",
 ]
 `;
