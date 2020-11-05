@@ -1,3 +1,22 @@
+# [v2.7.0](https://github.com/beaussan/nbx/compare/v2.6.0...v2.7.0) (2020-11-05)
+
+## ✨ New Features
+
+- [`55792da`](https://github.com/beaussan/nbx/commit/55792da)  add carco support for tailwindcss 
+
+## ⬆️ Upgraded dependencies
+
+- [`c586d4e`](https://github.com/beaussan/nbx/commit/c586d4e)  Upgrade dependency @types/node to v10.17.26 
+- [`5f2f701`](https://github.com/beaussan/nbx/commit/5f2f701)  Upgrade dependency eslint-config-oclif-typescript to v0.2.0 
+- [`bd31b81`](https://github.com/beaussan/nbx/commit/bd31b81)  Upgrade dependency isomorphic-git to v1.7.0 
+- [`ec65f8f`](https://github.com/beaussan/nbx/commit/ec65f8f)  Upgrade dependency @types/jest to v26 
+- [`474a9d5`](https://github.com/beaussan/nbx/commit/474a9d5)  Upgrade jest monorepo to v26.1.0 
+- [`2336774`](https://github.com/beaussan/nbx/commit/2336774)  Upgrade dependency eslint to v7.4.0 
+- [`04ad5fc`](https://github.com/beaussan/nbx/commit/04ad5fc)  Upgrade dependency semantic-release to v17.1.1 
+- [`8c56ade`](https://github.com/beaussan/nbx/commit/8c56ade)  Upgrade dependency typescript to v3.9.6 
+- [`359f174`](https://github.com/beaussan/nbx/commit/359f174)  Upgrade dependency codecov to v3.7.1 [SECURITY] 
+- [`fc04720`](https://github.com/beaussan/nbx/commit/fc04720)  upgrade all deps
+
 # [v2.6.0](https://github.com/beaussan/nbx/compare/v2.5.0...v2.6.0) (2020-06-10)
 
 ## ✨ New Features
