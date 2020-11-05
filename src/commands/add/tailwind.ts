@@ -1,5 +1,5 @@
 import { BaseCommand } from '../../utls/base-command';
-import { system, filesystem, patching } from 'gluegun';
+import { system, filesystem } from 'gluegun';
 import * as prompts from 'prompts';
 import { BaseAddCommand } from '../../utls/base-add-command';
 
@@ -19,6 +19,12 @@ export default class Tailwind extends BaseAddCommand {
       this.error('Tailwind is already installed in this project.');
     }
 
+    if (this.hasDependencyInPackageJson('@craco/craco')) {
+      this.error(
+        'Craco is already installed, this may bug so in case, I will stop there.',
+      );
+    }
+
     if (!this.hasDependencyInPackageJson('react-scripts')) {
       this.error('This script support only for now create react apps.');
     }
@@ -36,17 +42,14 @@ export default class Tailwind extends BaseAddCommand {
     );
 
     if (shouldCommit) {
-      this.initGit();
+      await this.initGit();
     }
 
     await this.installForCreateReactApps(shouldCommit);
   }
 
   async installForCreateReactApps(shouldCommit: boolean): Promise<void> {
-    await this.addDevDependency('@fullhuman/postcss-purgecss', shouldCommit);
-    await this.addDevDependency('autoprefixer', shouldCommit);
-    await this.addDevDependency('npm-run-all', shouldCommit);
-    await this.addDevDependency('postcss-cli', shouldCommit);
+    await this.addDevDependency('@craco/craco', shouldCommit);
     await this.addDependency('tailwindcss', shouldCommit);
 
     await this.runWithSpinner(
@@ -62,45 +65,47 @@ export default class Tailwind extends BaseAddCommand {
         }
       },
     );
-    await this.runWithSpinner('Generating postcss', async () => {
+    await this.runWithSpinner('Generating craco postcssconfig', async () => {
       await filesystem.write(
-        'postcss.config.js',
-        `const purgecss = require('@fullhuman/postcss-purgecss')({
-  content: ['./src/**/*.jsx', './src/**/*.js', './src/index.js', './public/index.html'],
-  css: ['./src/tailwind.css'],
-  // Include any special characters you're using in this regular expression
-  defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
-});
-module.exports = {
-  plugins: [
-    require('tailwindcss')('./tailwind.config.js'),
-    require('autoprefixer'),
-    ...(process.env.NODE_ENV === 'production' ? [purgecss] : []),
-  ],
+        'craco.config.js',
+        `module.exports = {
+  style: {
+    postcss: {
+      plugins: [require('tailwindcss')('./tailwind.config.js')],
+    },
+  },
 };
 `,
       );
 
       if (shouldCommit) {
-        await this.gitAdd({ filepath: 'postcss.config.js' });
-        await this.gitCommit({ message: ':wrench: add postcss config file' });
+        await this.gitAdd({ filepath: 'craco.config.js' });
+        await this.gitCommit({ message: ':wrench: craco postcss config file' });
       }
     });
 
     await this.runWithSpinner('Generating tailwind full css', async () => {
       await filesystem.dir('src/css');
       await filesystem.write(
-        'src/css/tailwind.src.css',
+        'src/css/tailwind.css',
         `@tailwind base;
 
-@tailwind components;
+/* Write your own custom base styles here */
 
+/* Start purging... */
+@tailwind components;
+/* Stop purging. */
+
+/* Start purging... */
 @tailwind utilities;
+/* Stop purging. */
+
+/* Your own custom utilities */
 `,
       );
 
       if (shouldCommit) {
-        await this.gitAdd({ filepath: 'src/css/tailwind.src.css' });
+        await this.gitAdd({ filepath: 'src/css/tailwind.css' });
         await this.gitCommit({ message: ':wrench: add tailwind css file' });
       }
     });
@@ -112,14 +117,9 @@ module.exports = {
         ...packageJsonWithDeps,
         scripts: {
           ...packageJsonWithDeps.scripts,
-          'start': 'npm-run-all -p start:css start:js',
-          'build': 'npm-run-all build:css build:js',
-          'start:js': packageJsonWithDeps.scripts.start,
-          'build:js': packageJsonWithDeps.scripts.build,
-          'start:css':
-            'postcss src/css/tailwind.src.css -o src/tailwind.css -w',
-          'build:css':
-            'postcss src/css/tailwind.src.css -o src/tailwind.css --env production',
+          start: 'craco start',
+          build: 'craco build',
+          test: 'craco test',
         },
       };
 
@@ -132,22 +132,5 @@ module.exports = {
         });
       }
     });
-
-    await this.runWithSpinner(
-      'Adding full tailwind css to .gitignore',
-      async () => {
-        await patching.append(
-          '.gitignore',
-          '\n# ignore tailwind generated css\nsrc/tailwind.css',
-        );
-
-        if (shouldCommit) {
-          await this.gitAdd({ filepath: '.gitignore' });
-          await this.gitCommit({
-            message: ':see_no_evil: add generated tailwind to .gitignore',
-          });
-        }
-      },
-    );
   }
 }

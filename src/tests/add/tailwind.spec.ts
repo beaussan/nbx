@@ -12,22 +12,14 @@ import {
 jest.setTimeout(90000);
 
 const checkPackgeAndPostcssConfig = async () => {
-  const [
-    tailwind,
-    purgecss,
-    autoprefixer,
-    npmRunAll,
-    postcss,
-  ] = await Promise.all([
+  const [tailwind, craco] = await Promise.all([
     latestVersion('tailwindcss'),
-    latestVersion('@fullhuman/postcss-purgecss'),
-    latestVersion('autoprefixer'),
-    latestVersion('npm-run-all'),
-    latestVersion('postcss-cli'),
+    latestVersion('@craco/craco'),
   ]);
   const packageJson = filesystem.read('package.json', 'json');
 
-  expect(filesystem.read('postcss.config.js', 'utf8')).toMatchSnapshot();
+  expect(filesystem.read('src/css/tailwind.css', 'utf8')).toMatchSnapshot();
+  expect(filesystem.read('tailwind.config.js', 'utf8')).toBeDefined();
   expect(packageJson).toStrictEqual({
     name: 'sample',
     version: '0.1.0',
@@ -37,21 +29,13 @@ const checkPackgeAndPostcssConfig = async () => {
       'tailwindcss': tailwind,
     },
     devDependencies: {
-      '@fullhuman/postcss-purgecss': purgecss,
-      'autoprefixer': autoprefixer,
-      'npm-run-all': npmRunAll,
-      'postcss-cli': postcss,
+      '@craco/craco': craco,
     },
     scripts: {
-      'start': 'npm-run-all -p start:css start:js',
-      'start:css': 'postcss src/css/tailwind.src.css -o src/tailwind.css -w',
-      'start:js': 'react-scripts start',
-      'build': 'npm-run-all build:css build:js',
-      'build:css':
-        'postcss src/css/tailwind.src.css -o src/tailwind.css --env production',
-      'build:js': 'react-scripts build',
-      'test': 'react-scripts test',
-      'eject': 'react-scripts eject',
+      start: 'craco start',
+      build: 'craco build',
+      test: 'craco test',
+      eject: 'react-scripts eject',
     },
   });
 };
@@ -86,6 +70,18 @@ testCli({
           },
         },
         errorMessage: 'Tailwind is already installed in this project.',
+      }),
+    },
+    {
+      name: 'error if craco is found',
+      runner: expectFailGitCommits({
+        packageJson: {
+          dependencies: {
+            '@craco/craco': '2.0.0',
+          },
+        },
+        errorMessage:
+          'Craco is already installed, this may bug so in case, I will stop there.',
       }),
     },
     {
@@ -130,44 +126,24 @@ testCli({
           },
         },
         expectGitLog: async () => {
-          const [
-            tailwind,
-            purgecss,
-            autoprefixer,
-            npmRunAll,
-            postcss,
-          ] = await Promise.all([
+          const [tailwind, craco] = await Promise.all([
             latestVersion('tailwindcss'),
-            latestVersion('@fullhuman/postcss-purgecss'),
-            latestVersion('autoprefixer'),
-            latestVersion('npm-run-all'),
-            latestVersion('postcss-cli'),
+            latestVersion('@craco/craco'),
           ]);
 
           return [
-            ':see_no_evil: add generated tailwind to .gitignore',
-            'M\t.gitignore',
             ':wrench: add script for tailwind to package.json',
             'M\tpackage.json',
             ':wrench: add tailwind css file',
-            'A\tsrc/css/tailwind.src.css',
-            ':wrench: add postcss config file',
-            'A\tpostcss.config.js',
+            'A\tsrc/css/tailwind.css',
+            ':wrench: craco postcss config file',
+            'A\tcraco.config.js',
             ':wrench: add tailwind config file',
             'A\ttailwind.config.js',
             `:heavy_plus_sign: add tailwindcss@${tailwind} as a dependency`,
             'M\tpackage.json',
             'M\tyarn.lock',
-            `:heavy_plus_sign: add postcss-cli@${postcss} as a dev dependency`,
-            'M\tpackage.json',
-            'M\tyarn.lock',
-            `:heavy_plus_sign: add npm-run-all@${npmRunAll} as a dev dependency`,
-            'M\tpackage.json',
-            'M\tyarn.lock',
-            `:heavy_plus_sign: add autoprefixer@${autoprefixer} as a dev dependency`,
-            'M\tpackage.json',
-            'M\tyarn.lock',
-            `:heavy_plus_sign: add @fullhuman/postcss-purgecss@${purgecss} as a dev dependency`,
+            `:heavy_plus_sign: add @craco/craco@${craco} as a dev dependency`,
             'M\tpackage.json',
             'M\tyarn.lock',
           ];
