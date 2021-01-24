@@ -20,7 +20,7 @@
     "gluegun": "4.4.0",
     "isomorphic-git": "1.7.8",
     "latest-version": "5.1.0",
-    "prompts": "2.3.2",
+    "prompts": "2.4.0",
     "tslib": "2.0.2"
   },
   "devDependencies": {
