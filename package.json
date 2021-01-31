@@ -36,7 +36,7 @@
     "@types/prompts": "2.0.9",
     "babel-jest": "26.5.2",
     "codecov": "3.8.0",
-    "eslint": "7.10.0",
+    "eslint": "7.19.0",
     "eslint-config-oclif": "3.1.0",
     "eslint-config-oclif-typescript": "0.2.0",
     "eslint-config-prettier": "6.12.0",
