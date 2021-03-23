@@ -32,10 +32,6 @@ jobs:
     <<: *test
     docker:
       - image: circleci/node:12
-  node-10:
-    <<: *test
-    docker:
-      - image: circleci/node:10
   prettier:
     <<: *test
     steps:
