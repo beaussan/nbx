@@ -1,3 +1,13 @@
+# [v3.0.0](https://github.com/beaussan/nbx/compare/v2.7.0...v3.0.0) (2021-03-23)
+
+## 💥 Breaking Changes
+
+- [`d4190e7`](https://github.com/beaussan/nbx/commit/d4190e7)  drop support for node 10 
+
+## ⬆️ Upgraded dependencies
+
+- [`245bf63`](https://github.com/beaussan/nbx/commit/245bf63)  upgrade all dependancies
+
 # [v2.7.0](https://github.com/beaussan/nbx/compare/v2.6.0...v2.7.0) (2020-11-05)
 
 ## ✨ New Features

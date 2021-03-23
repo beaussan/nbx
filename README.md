@@ -29,7 +29,7 @@ $ npm install -g @beaussan/nbx
 $ nbx COMMAND
 running command...
 $ nbx (-v|--version|version)
-@beaussan/nbx/2.7.0 linux-x64 node-v15.12.0
+@beaussan/nbx/2.7.0 linux-x64 node-v14.16.0
 $ nbx --help [COMMAND]
 USAGE
   $ nbx COMMAND
