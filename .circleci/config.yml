@@ -73,7 +73,6 @@ workflows:
     jobs:
       - node-latest
       - node-12
-      - node-10
       - prettier
       - lint
       - cache:
@@ -86,7 +85,6 @@ workflows:
           requires:
             - node-latest
             - node-12
-            - node-10
             - lint
             - prettier
           filters:
