@@ -14,9 +14,9 @@ commands:
           name: Install dependencies
           command: yarn
 jobs:
-  node-latest: &test
+  node-14: &test
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:14
     working_directory: ~/cli
     steps:
       - setup_deps
@@ -65,13 +65,13 @@ jobs:
       - setup_deps
       - run:
           name: release
-          command: yarn release || true
+          command: yarn release
 
 workflows:
   version: 2
   nbx:
     jobs:
-      - node-latest
+      - node-14
       - node-12
       - prettier
       - lint
@@ -83,7 +83,7 @@ workflows:
               only: master
       - release:
           requires:
-            - node-latest
+            - node-14
             - node-12
             - lint
             - prettier
